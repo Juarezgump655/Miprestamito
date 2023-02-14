@@ -16,7 +16,7 @@ public class Usuario implements Serializable {
     private Long idusuario;
 
     @Column(name= "id_region", nullable = false)
-    private Long usuario;
+    private Long idRegion;
 
     @Column(name= "DPI", nullable = false,unique = true)
     private String nit;
@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
 
     public Usuario(Long idusuario, Long usuario, String nit, String nombre, String apellidos, String correo, Long id_cargo, Long estado, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, String password, Long usuariomodifico, Long rol) {
         this.idusuario = idusuario;
-        this.usuario = usuario;
+        this.idRegion = usuario;
         this.nit = nit;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -86,12 +86,12 @@ public class Usuario implements Serializable {
         this.idusuario = idusuario;
     }
 
-    public Long getUsuario() {
-        return usuario;
+    public Long getIdRegion() {
+        return idRegion;
     }
 
-    public void setUsuario(Long usuario) {
-        this.usuario = usuario;
+    public void setIdRegion(Long idRegion) {
+        this.idRegion = idRegion;
     }
 
     public String getNit() {

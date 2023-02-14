@@ -26,7 +26,7 @@ public class UsuarioControlador {
         return usuarioServices.save(usuario);
     }
 
-    @GetMapping("/ALl")
+    @GetMapping("/all")
     public Iterable<Usuario> listarUsuarios(){
         logger.log(Level.INFO, "Se ejecuta el metodo listarUsuarios");
         return usuarioServices.listarUsuarios();
