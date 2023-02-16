@@ -50,11 +50,11 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar fechamodificacion;
 
-    @Column(name="password", nullable = false)
-    private String password;
-
     @Column(name ="usuariomodifico", nullable =false)
     private Long usuariomodifico;
+
+    @Column(name="password", nullable = false)
+    private String password;
     @Column(name ="rol", nullable =false)
     private Long rol;
 
