@@ -31,17 +31,17 @@ public class QuejaServicempl implements QuejaService{
 
     @Override
     public Iterable<Queja> listarQuejasPorUsuario(Long id) {
-        return repositorio.findByUsuarioId(id);
+        return null;
     }
 
     @Override
     public Iterable<Queja> listarQuejasPorPuntoAtencion(Long id) {
-        return repositorio.findByPuntoAtencionId(id);
+        return null;
     }
 
     @Override
     public Iterable<Queja> listarQuejasPorEstado(Long estado) {
-        return repositorio.findByEstado(estado);
+        return null;
     }
 
 

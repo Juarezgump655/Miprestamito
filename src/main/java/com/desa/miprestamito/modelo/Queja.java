@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "queja")
@@ -28,7 +29,7 @@ public class Queja implements Serializable {
 
     @Column(name ="fecha_hora_ingreso", nullable =false)
     @Temporal(TemporalType.DATE)
-    private Timestamp fechaHoraIngreso;
+    private Date fechaHoraIngreso;
 
     @Column(name ="detalle_queja", nullable =false)
     private Long detalleQueja;
@@ -61,7 +62,7 @@ public class Queja implements Serializable {
     public Queja() {
     }
 
-    public Queja(Long idQueja, Long idMedioIngresoQueja, Long idDocumento, Long idUsuario, Timestamp fechaHoraIngreso, Long detalleQueja, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, Long idTipoQueja, Long idEstado) {
+    public Queja(Long idQueja, Long idMedioIngresoQueja, Long idDocumento, Long idUsuario, Date fechaHoraIngreso, Long detalleQueja, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, Long idTipoQueja, Long idEstado) {
         this.idQueja = idQueja;
         this.idMedioIngresoQueja = idMedioIngresoQueja;
         this.idDocumento = idDocumento;
@@ -75,7 +76,6 @@ public class Queja implements Serializable {
         this.idTipoQueja = idTipoQueja;
         this.idEstado = idEstado;
     }
-
 
     public Long getIdQueja() {
         return idQueja;
@@ -109,11 +109,11 @@ public class Queja implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Timestamp getFechaHoraIngreso() {
+    public Date getFechaHoraIngreso() {
         return fechaHoraIngreso;
     }
 
-    public void setFechaHoraIngreso(Timestamp fechaHoraIngreso) {
+    public void setFechaHoraIngreso(Date fechaHoraIngreso) {
         this.fechaHoraIngreso = fechaHoraIngreso;
     }
 
