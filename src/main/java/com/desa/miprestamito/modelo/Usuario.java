@@ -15,8 +15,8 @@ public class Usuario implements Serializable {
     @Column(unique = true, nullable = false)
     private Long idusuario;
 
-    @Column(name= "id_region", nullable = false)
-    private Long idRegion;
+    @Column(name= "id_puntoAtencion", nullable = false)
+    private Long idPuntoAtencion;
 
     @Column(name= "DPI", nullable = false,unique = true)
     private String nit;
@@ -61,9 +61,9 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Long idusuario, Long usuario, String nit, String nombre, String apellidos, String correo, Long id_cargo, Long estado, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, String password, Long usuariomodifico, Long rol) {
+    public Usuario(Long idusuario, Long idPuntoAtencion, String nit, String nombre, String apellidos, String correo, Long id_cargo, Long estado, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, String password, Long rol) {
         this.idusuario = idusuario;
-        this.idRegion = usuario;
+        this.idPuntoAtencion = idPuntoAtencion;
         this.nit = nit;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -73,10 +73,12 @@ public class Usuario implements Serializable {
         this.usuariocreo = usuariocreo;
         this.fechacreacion = fechacreacion;
         this.fechamodificacion = fechamodificacion;
-        this.password = password;
         this.usuariomodifico = usuariomodifico;
+        this.password = password;
         this.rol = rol;
     }
+
+
 
     public Long getIdusuario() {
         return idusuario;
@@ -86,12 +88,12 @@ public class Usuario implements Serializable {
         this.idusuario = idusuario;
     }
 
-    public Long getIdRegion() {
-        return idRegion;
+    public Long getIdPuntoAtencion() {
+        return idPuntoAtencion;
     }
 
-    public void setIdRegion(Long idRegion) {
-        this.idRegion = idRegion;
+    public void setIdPuntoAtencion(Long idPuntoAtencion) {
+        this.idPuntoAtencion = idPuntoAtencion;
     }
 
     public String getNit() {
