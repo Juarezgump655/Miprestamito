@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CargoRepo  extends JpaRepository<Cargo, Long> {
+
 }

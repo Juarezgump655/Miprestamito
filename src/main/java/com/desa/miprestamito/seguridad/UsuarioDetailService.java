@@ -1,4 +1,4 @@
-package com.desa.miprestamito.servicio;
+package com.desa.miprestamito.seguridad;
 
 
 import com.desa.miprestamito.modelo.Usuario;

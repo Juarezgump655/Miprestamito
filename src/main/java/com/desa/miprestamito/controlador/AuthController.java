@@ -3,7 +3,7 @@ package com.desa.miprestamito.controlador;
 import com.desa.miprestamito.seguridad.AuthenticationRequest;
 import com.desa.miprestamito.seguridad.AuthenticationResponse;
 import com.desa.miprestamito.seguridad.JWTUtil;
-import com.desa.miprestamito.servicio.UsuarioDetailService;
+import com.desa.miprestamito.seguridad.UsuarioDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
