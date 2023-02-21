@@ -16,7 +16,7 @@ public class PuntosAtencion implements Serializable {
     private Long idRegion;
 
     @Column(name= "nombre_punto_atencion", nullable = false)
-    private Long nombrePuntoAtencion;
+    private String nombrePuntoAtencion;
 
     @Column(name ="usuariocreo", nullable =false)
     private Long usuariocreo;
@@ -42,7 +42,7 @@ public class PuntosAtencion implements Serializable {
     public PuntosAtencion() {
     }
 
-    public PuntosAtencion(Long idRegion, Long nombrePuntoAtencion, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, Long estado) {
+    public PuntosAtencion(Long idRegion, String nombrePuntoAtencion, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, Long estado) {
         this.idRegion = idRegion;
         this.nombrePuntoAtencion = nombrePuntoAtencion;
         this.usuariocreo = usuariocreo;
@@ -60,11 +60,11 @@ public class PuntosAtencion implements Serializable {
         this.idRegion = idRegion;
     }
 
-    public Long getNombrePuntoAtencion() {
+    public String getNombrePuntoAtencion() {
         return nombrePuntoAtencion;
     }
 
-    public void setNombrePuntoAtencion(Long nombrePuntoAtencion) {
+    public void setNombrePuntoAtencion(String nombrePuntoAtencion) {
         this.nombrePuntoAtencion = nombrePuntoAtencion;
     }
 

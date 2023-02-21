@@ -10,6 +10,8 @@ public interface QuejaService {
 
     public Queja listarId(Long id);
 
+    public Iterable<Queja> listarQuejasIdTipoQueja(Long id);
+
     public Iterable<Queja> listarQuejasPorUsuario(Long id);
 
     public Iterable<Queja> listarQuejasPorPuntoAtencion(Long id);

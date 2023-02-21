@@ -58,6 +58,12 @@ public class QuejaControlador {
         return(List<Queja>) QuejaService.listarQuejasPorEstado(estado);
     }
 
+    @GetMapping("/Quejas-por-tipo-quejas/{id}")
+    public List<Queja> listarQuejaPorTipoQueja(@PathVariable(value = "id") Long id){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorTipoQueja");
+        return(List<Queja>) QuejaService.listarQuejasIdTipoQueja(id);
+    }
+
 
 
 }

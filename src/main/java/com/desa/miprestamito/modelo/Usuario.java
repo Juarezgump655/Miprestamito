@@ -15,8 +15,6 @@ public class Usuario implements Serializable {
     @Column(unique = true, nullable = false)
     private Long idusuario;
 
-    @Column(name= "id_puntoAtencion", nullable = false)
-    private Long idPuntoAtencion;
 
     @Column(name= "DPI", nullable = false,unique = true)
     private String nit;
@@ -58,12 +56,14 @@ public class Usuario implements Serializable {
     @Column(name ="rol", nullable =false)
     private Long rol;
 
+    @Column(name= "id_puntoatencion")
+    private Long idpuntoatecion;
+
     public Usuario() {
     }
 
-    public Usuario(Long idusuario, Long idPuntoAtencion, String nit, String nombre, String apellidos, String correo, Long id_cargo, Long estado, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, String password, Long rol) {
+    public Usuario(Long idusuario, String nit, String nombre, String apellidos, String correo, Long id_cargo, Long estado, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, String password, Long rol, Long idpuntoatecion) {
         this.idusuario = idusuario;
-        this.idPuntoAtencion = idPuntoAtencion;
         this.nit = nit;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -76,9 +76,8 @@ public class Usuario implements Serializable {
         this.usuariomodifico = usuariomodifico;
         this.password = password;
         this.rol = rol;
+        this.idpuntoatecion = idpuntoatecion;
     }
-
-
 
     public Long getIdusuario() {
         return idusuario;
@@ -86,14 +85,6 @@ public class Usuario implements Serializable {
 
     public void setIdusuario(Long idusuario) {
         this.idusuario = idusuario;
-    }
-
-    public Long getIdPuntoAtencion() {
-        return idPuntoAtencion;
-    }
-
-    public void setIdPuntoAtencion(Long idPuntoAtencion) {
-        this.idPuntoAtencion = idPuntoAtencion;
     }
 
     public String getNit() {
@@ -168,14 +159,6 @@ public class Usuario implements Serializable {
         this.fechamodificacion = fechamodificacion;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Long getUsuariomodifico() {
         return usuariomodifico;
     }
@@ -184,11 +167,27 @@ public class Usuario implements Serializable {
         this.usuariomodifico = usuariomodifico;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Long getRol() {
         return rol;
     }
 
     public void setRol(Long rol) {
         this.rol = rol;
+    }
+
+    public Long getIdpuntoatecion() {
+        return idpuntoatecion;
+    }
+
+    public void setIdpuntoatecion(Long idpuntoatecion) {
+        this.idpuntoatecion = idpuntoatecion;
     }
 }
