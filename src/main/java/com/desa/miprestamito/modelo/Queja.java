@@ -28,11 +28,11 @@ public class Queja implements Serializable {
     private Long idUsuario;
 
     @Column(name ="fecha_hora_ingreso", nullable =false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaHoraIngreso;
 
     @Column(name ="detalle_queja", nullable =false)
-    private Long detalleQueja;
+    private String detalleQueja;
 
 
     @Column(name ="usuariocreo", nullable =false)
@@ -62,7 +62,7 @@ public class Queja implements Serializable {
     public Queja() {
     }
 
-    public Queja(Long idQueja, Long idMedioIngresoQueja, Long idDocumento, Long idUsuario, Date fechaHoraIngreso, Long detalleQueja, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, Long idTipoQueja, Long idEstado) {
+    public Queja(Long idQueja, Long idMedioIngresoQueja, Long idDocumento, Long idUsuario, Date fechaHoraIngreso, String detalleQueja, Long usuariocreo, Calendar fechacreacion, Calendar fechamodificacion, Long usuariomodifico, Long idTipoQueja, Long idEstado) {
         this.idQueja = idQueja;
         this.idMedioIngresoQueja = idMedioIngresoQueja;
         this.idDocumento = idDocumento;
@@ -117,11 +117,11 @@ public class Queja implements Serializable {
         this.fechaHoraIngreso = fechaHoraIngreso;
     }
 
-    public Long getDetalleQueja() {
+    public String getDetalleQueja() {
         return detalleQueja;
     }
 
-    public void setDetalleQueja(Long detalleQueja) {
+    public void setDetalleQueja(String detalleQueja) {
         this.detalleQueja = detalleQueja;
     }
 

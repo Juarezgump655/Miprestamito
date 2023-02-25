@@ -22,17 +22,18 @@ public class UsuarioServicempl implements UsuarioServicio {
         return repositorio.save(usuario);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Iterable<Usuario> listarUsuarios(){
         return repositorio.findAll();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Usuario listarId(Long id){
         return repositorio.findById(id).orElseThrow(()-> new ResourceNotFoundException("No se encontro el usuario" + id));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Usuario> findbyCorreo(String correo) {
         return repositorio.findByCorreo(correo);
     }

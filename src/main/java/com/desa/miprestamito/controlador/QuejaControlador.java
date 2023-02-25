@@ -63,7 +63,19 @@ public class QuejaControlador {
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorTipoQueja");
         return(List<Queja>) QuejaService.listarQuejasIdTipoQueja(id);
     }
-
-
+/*
+    @PutMapping("/actualizar/{id}")
+    public Queja actualizarQueja(@PathVariable(value = "id") Long id, @RequestBody Queja queja){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo actualizarQueja");
+        Queja quejaActual = QuejaService.listarId(id);
+        quejaActual.setEstado(queja.getEstado());
+        quejaActual.setFecha(queja.getFecha());
+        quejaActual.setPuntosAtencion(queja.getPuntosAtencion());
+        quejaActual.setTipoQueja(queja.getTipoQueja());
+        quejaActual.setUsuario(queja.getUsuario());
+        quejaActual.setDescripcion(queja.getDescripcion());
+        return QuejaService.save(quejaActual);
+    }
+*/
 
 }

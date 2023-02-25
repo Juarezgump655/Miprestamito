@@ -5,6 +5,7 @@ import com.desa.miprestamito.modelo.Queja;
 import com.desa.miprestamito.repositorio.QuejaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QuejaServicempl implements QuejaService{
@@ -15,36 +16,43 @@ public class QuejaServicempl implements QuejaService{
 
 
     @Override
+    @Transactional
     public Queja save(Queja queja) {
         return repositorio.save(queja);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Iterable<Queja> listarQuejas() {
         return repositorio.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Queja listarId(Long id) {
         return repositorio.findById(id).orElseThrow(()-> new ResourceNotFoundException("No se encontro la queja con el id:" + id));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Iterable<Queja> listarQuejasIdTipoQueja(Long id) {
         return repositorio.findByIdTipoQueja(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Iterable<Queja> listarQuejasPorUsuario(Long id) {
         return repositorio.findByIdUsuario(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Iterable<Queja> listarQuejasPorPuntoAtencion(Long id) {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Iterable<Queja> listarQuejasPorEstado(Long estado) {
         return repositorio.findByIdEstado(estado);
     }
