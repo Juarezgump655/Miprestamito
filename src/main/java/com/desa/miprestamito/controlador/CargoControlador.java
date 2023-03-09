@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/Cargo")
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*")
 public class CargoControlador {
 
     @Autowired

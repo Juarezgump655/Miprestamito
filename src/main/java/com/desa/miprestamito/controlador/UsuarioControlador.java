@@ -19,7 +19,7 @@ public class UsuarioControlador {
     private static Logger logger
             = Logger.getLogger(
             UsuarioControlador.class.getName());
-    @PostMapping("/guardar")
+    @PostMapping("/guardarUsuario")
     public Usuario guardarUsuario(@RequestBody Usuario usuario){
         logger.log(Level.INFO, "Se ejecuta el metodo guardarUsuario");
         System.out.print(usuario);
