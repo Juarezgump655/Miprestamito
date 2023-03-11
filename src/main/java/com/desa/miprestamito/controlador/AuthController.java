@@ -1,9 +1,11 @@
 package com.desa.miprestamito.controlador;
 
+import com.desa.miprestamito.modelo.Usuario;
 import com.desa.miprestamito.seguridad.AuthenticationRequest;
 import com.desa.miprestamito.seguridad.AuthenticationResponse;
 import com.desa.miprestamito.seguridad.JWTUtil;
 import com.desa.miprestamito.seguridad.UsuarioDetailService;
+import com.desa.miprestamito.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +32,9 @@ public class AuthController {
     @Autowired
     private UsuarioDetailService usuarioDetailService;
 
+
+    @Autowired
+    private UsuarioServicio usuarioServicio;
     private static Logger logger
             = Logger.getLogger(
             AuthController.class.getName());
@@ -46,9 +52,20 @@ public class AuthController {
             logger.log(Level.INFO, "se ejecuta el metodo createToken despues de authenticate");
             UserDetails userDetails = usuarioDetailService.loadUserByUsername(request.getUsername());
             String jwt = jwtUtil.generateToken(userDetails);
-            return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
+            String nombre = getDpi(request.getUsername());
+
+
+            return new ResponseEntity<>(new AuthenticationResponse(jwt, nombre), HttpStatus.OK);
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
+
+
+    public String getDpi(String username){
+        Optional<Usuario> usuario = usuarioServicio.findbyCorreo(username);
+        String dpi = usuario.get().getDpi();
+        return dpi;
+    }
+
 }

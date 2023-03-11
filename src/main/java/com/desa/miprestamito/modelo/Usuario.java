@@ -2,6 +2,7 @@ package com.desa.miprestamito.modelo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 @Entity
 @Table(name = "usuarios")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Usuario implements Serializable {
 
     @Id
@@ -39,7 +41,7 @@ public class Usuario implements Serializable {
     private Long estado;
 
     @Column(name ="usuariocreo", nullable =false)
-    private Long usuariocreo;
+    private String usuariocreo;
 
 
     @Column(name = "fechacreacion", updatable = false)
@@ -53,7 +55,7 @@ public class Usuario implements Serializable {
     private Calendar fechamodificacion;
 
     @Column(name ="usuariomodifico", nullable =false)
-    private Long usuariomodifico;
+    private String usuariomodifico;
 
     @Column(name="password", nullable = false)
     private String password;
@@ -65,9 +67,5 @@ public class Usuario implements Serializable {
 
     @Column(name= "no_telefono",nullable = false)
     private String telefono;
-    public Usuario() {
-    }
-
-
 
 }
