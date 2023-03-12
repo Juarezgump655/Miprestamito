@@ -1,14 +1,15 @@
-package com.desa.miprestamito.servicio;
+package com.desa.miprestamito.servicio.impl;
 
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.Queja;
 import com.desa.miprestamito.repositorio.QuejaRepo;
+import com.desa.miprestamito.servicio.QuejaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class QuejaServicempl implements QuejaService{
+public class QuejaServicempl implements QuejaService {
 
     @Autowired
     private QuejaRepo repositorio;

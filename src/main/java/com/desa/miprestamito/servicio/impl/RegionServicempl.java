@@ -1,8 +1,9 @@
-package com.desa.miprestamito.servicio;
+package com.desa.miprestamito.servicio.impl;
 
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.Region;
 import com.desa.miprestamito.repositorio.RegionRepo;
+import com.desa.miprestamito.servicio.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
