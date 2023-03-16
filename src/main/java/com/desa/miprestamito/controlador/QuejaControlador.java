@@ -41,7 +41,7 @@ public class QuejaControlador {
     }
 
     @GetMapping("/Quejas-por-Usuarios/{id}")
-    public List<Queja> listarQuejaPorUsuario(@PathVariable(value = "id") Long id){
+    public List<Queja> listarQuejaPorUsuario(@PathVariable(value = "id") String id){
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorUsuario");
         return(List<Queja>)  QuejaService.listarQuejasPorUsuario(id);
     }
@@ -52,7 +52,7 @@ public class QuejaControlador {
         return(List<Queja>)  QuejaService.listarQuejasPorPuntoAtencion(id);
     }
 
-    @GetMapping("/Quejas-por-Estado/{estado}")
+    @GetMapping("+-{estado}")
     public List<Queja> listarQuejaPorEstado(@PathVariable(value = "estado") Long estado){
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorEstado");
         return(List<Queja>) QuejaService.listarQuejasPorEstado(estado);

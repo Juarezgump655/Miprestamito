@@ -10,14 +10,13 @@ import java.util.List;
 @Repository
 public interface QuejaRepo extends CrudRepository<Queja, Long> {
 
-    public Iterable<Queja> findByIdUsuario(Long id);
-
+    public  Iterable<Queja> findByUsuariocreo(String id);
 
     public List<Queja> findByIdTipoQueja(Long id);
 
-    /*
-        public Iterable<Queja> findByPuntoAtencionId(Long id);
-     */
+
+    public Iterable<Queja> findByIdPuntoAtencion(Long id);
+
     public List<Queja> findByIdEstado(Long id);
 
 

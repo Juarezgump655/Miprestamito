@@ -18,9 +18,11 @@ public class PuntosAtencion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_region",unique = true, nullable = false)
-    private Long idRegion;
+    @Column(name = "id_punto_atencion",unique = true, nullable = false)
+    private Long iDpuntoAtencion;
 
+    @Column(name ="id_region",  nullable = false)
+    private Long idRegion;
     @Column(name= "nombre_punto_atencion", nullable = false)
     private String nombrePuntoAtencion;
 

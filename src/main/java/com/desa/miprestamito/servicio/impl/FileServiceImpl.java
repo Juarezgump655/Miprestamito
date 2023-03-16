@@ -16,7 +16,9 @@ public class FileServiceImpl implements FileServiceAPI {
 
     @Override
     public void save(MultipartFile file) throws Exception {
-        Files.copy(file.getInputStream(), this.rootFolder.resolve(file.getOriginalFilename()));
+        String nombreFila =file.getOriginalFilename().replace(" ", "_");
+        System.out.println(nombreFila);
+        Files.copy(file.getInputStream(), this.rootFolder.resolve(nombreFila));
     }
 
     @Override

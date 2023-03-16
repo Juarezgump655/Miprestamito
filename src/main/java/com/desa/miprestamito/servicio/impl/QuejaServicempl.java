@@ -42,14 +42,14 @@ public class QuejaServicempl implements QuejaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Iterable<Queja> listarQuejasPorUsuario(Long id) {
-        return repositorio.findByIdUsuario(id);
+    public Iterable<Queja> listarQuejasPorUsuario(String id) {
+        return repositorio.findByUsuariocreo(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Iterable<Queja> listarQuejasPorPuntoAtencion(Long id) {
-        return null;
+     return repositorio.findByIdPuntoAtencion(id);
     }
 
     @Override

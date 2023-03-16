@@ -24,14 +24,11 @@ public class Queja implements Serializable {
     @Column(name ="id_queja", unique = true, nullable = false)
     private Long idQueja;
 
+    @Column(name ="id_punto_atencion", nullable =false)
+    private Long idPuntoAtencion;
+
     @Column(name ="id_medio_ingreso_queja", nullable =false)
     private Long idMedioIngresoQueja;
-
-    @Column(name ="id_documento", nullable =false)
-    private Long idDocumento;
-
-    @Column(name ="idusuario", nullable =false)
-    private Long idUsuario;
 
     @Column(name ="fecha_hora_ingreso", nullable =false)
     @Temporal(TemporalType.TIMESTAMP)
