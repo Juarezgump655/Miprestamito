@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +13,6 @@ import java.util.Calendar;
 @Setter
 @Entity
 @Table(name = "usuarios")
-@AllArgsConstructor
 @NoArgsConstructor
 public class Usuario implements Serializable {
 
@@ -67,5 +67,6 @@ public class Usuario implements Serializable {
 
     @Column(name= "no_telefono",nullable = false)
     private String telefono;
+
 
 }

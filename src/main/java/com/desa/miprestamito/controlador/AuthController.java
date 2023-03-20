@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,8 @@ public class AuthController {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private static Logger logger
             = Logger.getLogger(
             AuthController.class.getName());
@@ -43,20 +46,22 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> createToken(@RequestBody AuthenticationRequest request) {
-
-        try {
+        String contraseña = getContraseña(request.getUsername()); //obtiene la contraseña del usuario
+        if (contraseña != null && passwordEncoder.matches(request.getPassword(), contraseña)) { // si el usuario existe y la contraseña es correcta
+          try {
             logger.log(Level.INFO, "se ejecuta el metodo createToken antes de authenticate");
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-            );
-            logger.log(Level.INFO, "se ejecuta el metodo createToken despues de authenticate");
             UserDetails userDetails = usuarioDetailService.loadUserByUsername(request.getUsername());
+            logger.log(Level.INFO, "se ejecuta el metodo createToken despues de authenticate");
             String jwt = jwtUtil.generateToken(userDetails);
             String nombre = getDpi(request.getUsername());
 
 
             return new ResponseEntity<>(new AuthenticationResponse(jwt, nombre), HttpStatus.OK);
-        } catch (BadCredentialsException e) {
+           } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+           }
+        }else{
+            System.out.println("false");
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
@@ -68,4 +73,9 @@ public class AuthController {
         return dpi;
     }
 
+    public String getContraseña(String username){
+        Optional<Usuario> usuario = usuarioServicio.findbyCorreo(username);
+        String contraseña = usuario.get().getPassword();
+        return contraseña;
+    }
 }

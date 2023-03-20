@@ -3,6 +3,7 @@ package com.desa.miprestamito.controlador;
 import com.desa.miprestamito.modelo.Usuario;
 import com.desa.miprestamito.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -22,7 +23,9 @@ public class UsuarioControlador {
     @PostMapping("/guardarUsuario")
     public Usuario guardarUsuario(@RequestBody Usuario usuario){
         logger.log(Level.INFO, "Se ejecuta el metodo guardarUsuario");
-        System.out.print(usuario);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordEncriptada = passwordEncoder.encode(usuario.getPassword());
+        usuario.setPassword(passwordEncriptada);
         return usuarioServices.save(usuario);
     }
 
@@ -44,5 +47,6 @@ public class UsuarioControlador {
         logger.log(Level.INFO, "Se ejecuta el metodo buscarPorUsername");
         return usuarioServices.findbyCorreo(correo);
     }
+
 
 }
