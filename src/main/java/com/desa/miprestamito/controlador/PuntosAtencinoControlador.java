@@ -1,11 +1,12 @@
 package com.desa.miprestamito.controlador;
 
+import com.desa.miprestamito.Projections.regionesParaPuntosProjection;
 import com.desa.miprestamito.modelo.PuntosAtencion;
-import com.desa.miprestamito.modelo.Usuario;
 import com.desa.miprestamito.servicio.PuntoAtencionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,6 +43,19 @@ public class PuntosAtencinoControlador {
         logger.log(Level.INFO, "Se ejecuta el metodo listarPuntosAtencionId");
         return puntosAtencionService.listarId(id);
     }
+
+    List<regionesParaPuntosProjection>catalogoRegiones;
+    @GetMapping("/traerRegiones")
+    public List<regionesParaPuntosProjection>traerRegiones(){
+        logger.log(Level.INFO, "Se ejecuta el metodo traerRegiones");
+    if (this.catalogoRegiones==null){
+        this.catalogoRegiones= puntosAtencionService.traerRegiones();
+        return this.catalogoRegiones;
+    }else{
+        return this.catalogoRegiones;
+    }
+    }
+
 
 
 }
