@@ -3,6 +3,7 @@ package com.desa.miprestamito.controlador;
 import com.desa.miprestamito.modelo.Queja;
 import com.desa.miprestamito.servicio.QuejaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/Queja")
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*")
 public class QuejaControlador {
 
     @Autowired
@@ -46,13 +47,13 @@ public class QuejaControlador {
         return(List<Queja>)  QuejaService.listarQuejasPorUsuario(id);
     }
 
-    @GetMapping("/Quejas-por-PuntosAtencion/{id}")
-    public List<Queja> listarQuejaPorPuntoAtencion(@PathVariable(value = "id") Long id){
+    @GetMapping("/Quejas-por-PuntosAtencion/{idPuntosAtencion}")
+    public ResponseEntity<Iterable<Queja>> listarQuejaPorPuntoAtencion(@PathVariable(value = "idPuntosAtencion") Long idPuntosAtencion){
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorPuntoAtencion");
-        return(List<Queja>)  QuejaService.listarQuejasPorPuntoAtencion(id);
+        return ResponseEntity.ok(QuejaService.listarQuejasPorPuntoAtencion(idPuntosAtencion));
     }
 
-    @GetMapping("+-{estado}")
+    @GetMapping("/{estado}")
     public List<Queja> listarQuejaPorEstado(@PathVariable(value = "estado") Long estado){
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorEstado");
         return(List<Queja>) QuejaService.listarQuejasPorEstado(estado);

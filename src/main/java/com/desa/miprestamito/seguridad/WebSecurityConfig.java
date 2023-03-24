@@ -29,10 +29,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/**/authenticate","/v3/api-docs", "/configuration/ui",
+
+        http
+                .cors().and()
+                .csrf().disable().authorizeRequests().antMatchers("/**/authenticate","/v3/api-docs", "/configuration/ui",
                         "/swagger-resources/**", "/configuration/security",
-                        "/swagger-ui.html", "/webjars/**","/*/guardarUsuario","/swagger-ui/index.html").permitAll()
-                .anyRequest().authenticated().and().sessionManagement()
+                        "/swagger-ui.html", "/webjars/**","/*/guardarUsuario","/swagger-ui/index.html")
+                .permitAll()
+                .anyRequest().authenticated().and().httpBasic().and()
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtFilterRequest, UsernamePasswordAuthenticationFilter.class);
