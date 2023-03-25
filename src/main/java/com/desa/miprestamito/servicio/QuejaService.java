@@ -1,6 +1,9 @@
 package com.desa.miprestamito.servicio;
 
+import com.desa.miprestamito.Projections.TableReportesProjection;
 import com.desa.miprestamito.modelo.Queja;
+
+import java.util.List;
 
 public interface QuejaService {
 
@@ -14,7 +17,7 @@ public interface QuejaService {
 
     public Iterable<Queja> listarQuejasPorUsuario(String id);
 
-    public Iterable<Queja> listarQuejasPorPuntoAtencion(Long id);
+    public List<TableReportesProjection> listarQuejasPorPuntoAtencion(Long id);
 
     public Iterable<Queja> listarQuejasPorEstado(Long estado);
 

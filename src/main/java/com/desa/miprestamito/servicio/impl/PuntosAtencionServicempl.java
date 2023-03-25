@@ -1,5 +1,6 @@
 package com.desa.miprestamito.servicio.impl;
 
+import com.desa.miprestamito.Projections.PuntoAtencionProjection;
 import com.desa.miprestamito.Projections.regionesParaPuntosProjection;
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.PuntosAtencion;
@@ -41,6 +42,11 @@ public class PuntosAtencionServicempl implements PuntoAtencionService {
     @Transactional
     public List<regionesParaPuntosProjection>traerRegiones(){
         return (List<regionesParaPuntosProjection>)repositorio.traerRegiones();
+    }
+
+    @Override
+    public List<PuntoAtencionProjection> traerPuntosDeAencion() {
+        return repositorio.traerPuntosAtencion();
     }
 
 

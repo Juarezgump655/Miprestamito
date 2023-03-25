@@ -24,6 +24,10 @@ public class Queja implements Serializable {
     @Column(name ="id_queja", unique = true, nullable = false)
     private Long idQueja;
 
+
+    @Column(name ="correlativo", nullable =false)
+    private String correlativo;
+
     @Column(name ="id_punto_atencion", nullable =false)
     private Long idPuntoAtencion;
 

@@ -1,6 +1,13 @@
 package com.desa.miprestamito.controlador;
 
+import com.desa.miprestamito.Projections.PuntoAtencionProjection;
+import com.desa.miprestamito.Projections.TableReportesProjection;
+import com.desa.miprestamito.Projections.TipoQuejaProjection;
+import com.desa.miprestamito.modelo.MedioIngeresoQueja;
 import com.desa.miprestamito.modelo.Queja;
+import com.desa.miprestamito.repositorio.TipoQuejaRepo;
+import com.desa.miprestamito.servicio.MedioIngresoQuejaService;
+import com.desa.miprestamito.servicio.PuntoAtencionService;
 import com.desa.miprestamito.servicio.QuejaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +23,15 @@ public class QuejaControlador {
 
     @Autowired
     private QuejaService QuejaService;
+
+    @Autowired
+    private MedioIngresoQuejaService medioIngresoQuejaService;
+
+    @Autowired
+    private PuntoAtencionService puntoAtencionService;
+
+    @Autowired
+    private TipoQuejaRepo tipoQuejaRepo;
 
     private static Logger logger
             = Logger.getLogger(
@@ -47,10 +63,10 @@ public class QuejaControlador {
         return(List<Queja>)  QuejaService.listarQuejasPorUsuario(id);
     }
 
-    @GetMapping("/Quejas-por-PuntosAtencion/{idPuntosAtencion}")
-    public ResponseEntity<Iterable<Queja>> listarQuejaPorPuntoAtencion(@PathVariable(value = "idPuntosAtencion") Long idPuntosAtencion){
+    @GetMapping("/QuejaporPuntosAtencion/{idPuntosAtencion}")
+    public List <TableReportesProjection>listarQuejaPorPuntoAtencion(@PathVariable(value = "idPuntosAtencion") Long idPuntosAtencion){
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorPuntoAtencion");
-        return ResponseEntity.ok(QuejaService.listarQuejasPorPuntoAtencion(idPuntosAtencion));
+        return(List<TableReportesProjection>) QuejaService.listarQuejasPorPuntoAtencion(idPuntosAtencion);
     }
 
     @GetMapping("/{estado}")
@@ -64,6 +80,27 @@ public class QuejaControlador {
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorTipoQueja");
         return(List<Queja>) QuejaService.listarQuejasIdTipoQueja(id);
     }
+
+
+    @GetMapping("/medio-ingreso")
+    public List<MedioIngeresoQueja> listarCatalogoMedioIngreso(){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarCatalogoMedioIngreso ");
+        return(List<MedioIngeresoQueja>) medioIngresoQuejaService.listarMedioIngresoQueja();
+    }
+
+    @GetMapping("/puntos-atencion")
+    public List<PuntoAtencionProjection> listarPuntosAtencion(){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarPuntosAtencion ");
+        return(List<PuntoAtencionProjection>) puntoAtencionService.traerPuntosDeAencion();
+    }
+
+    @GetMapping("/tipo-queja")
+    public List<TipoQuejaProjection> listarTipoQueja(){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarTipoQueja ");
+        return(List<TipoQuejaProjection>) tipoQuejaRepo.listarTipoQueja();
+    }
+
+
 /*
     @PutMapping("/actualizar/{id}")
     public Queja actualizarQueja(@PathVariable(value = "id") Long id, @RequestBody Queja queja){

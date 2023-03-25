@@ -1,5 +1,6 @@
 package com.desa.miprestamito.servicio.impl;
 
+import com.desa.miprestamito.Projections.TableReportesProjection;
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.Queja;
 import com.desa.miprestamito.repositorio.QuejaRepo;
@@ -7,6 +8,8 @@ import com.desa.miprestamito.servicio.QuejaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class QuejaServicempl implements QuejaService {
@@ -48,8 +51,8 @@ public class QuejaServicempl implements QuejaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Iterable<Queja> listarQuejasPorPuntoAtencion(Long id) {
-     return repositorio.findByIdPuntoAtencion(id);
+    public List<TableReportesProjection> listarQuejasPorPuntoAtencion(Long id) {
+     return( List<TableReportesProjection>) repositorio.findByIdPuntoAtencion(id);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.desa.miprestamito.servicio;
 
+import com.desa.miprestamito.Projections.PuntoAtencionProjection;
 import com.desa.miprestamito.Projections.regionesParaPuntosProjection;
 import com.desa.miprestamito.modelo.PuntosAtencion;
 
@@ -16,4 +17,6 @@ public interface PuntoAtencionService {
     public PuntosAtencion listarId(Long id);
 
     public List<regionesParaPuntosProjection>traerRegiones();
+
+    public List<PuntoAtencionProjection>traerPuntosDeAencion();
 }

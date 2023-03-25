@@ -1,5 +1,6 @@
 package com.desa.miprestamito.repositorio;
 
+import com.desa.miprestamito.Projections.PuntoAtencionProjection;
 import com.desa.miprestamito.Projections.regionesParaPuntosProjection;
 import com.desa.miprestamito.modelo.PuntosAtencion;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,9 @@ public interface PuntosAtencionRepo extends JpaRepository<PuntosAtencion, Long> 
         nativeQuery=true)
     List<regionesParaPuntosProjection>traerRegiones();
 
-
+@Query(value = "select p.id_punto_atencion as idPuntoAtencion, p.nombre_punto_atencion as nombrePuntoAtencion \n" +
+        "\t\tfrom puntos_atencion p\n" +
+        "\t\twhere p.id_estado =1",
+        nativeQuery=true)
+    List<PuntoAtencionProjection>traerPuntosAtencion();
 }
