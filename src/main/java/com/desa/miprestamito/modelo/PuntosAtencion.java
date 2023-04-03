@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -18,7 +19,7 @@ public class PuntosAtencion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_punto_atencion",unique = true, nullable = false)
+    @Column(name = "id_punto_atencion",unique = true)
     private Long iDpuntoAtencion;
 
     @Column(name ="id_region",  nullable = false)
@@ -29,15 +30,15 @@ public class PuntosAtencion implements Serializable {
     @Column(name ="usuariocreo", nullable =false)
     private String usuariocreo;
 
-    @Column(name = "fechacreacion", updatable = false, nullable = false)
+    @Column(name = "fechacreacion", insertable = false,updatable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
-    private Calendar fechacreacion;
+    private Date fechacreacion;
 
-    @Column(name = "fechamodificacion", nullable = false)
+    @Column(name = "fechamodificacion",insertable = false, updatable = true,columnDefinition = "DATE DEFAULT CURRENT_DATE")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
-    private Calendar fechamodificacion;
+    private Date fechamodificacion;
 
     @Column(name ="usuariomodifico", nullable =false)
     private String usuariomodifico;

@@ -1,9 +1,11 @@
 package com.desa.miprestamito.controlador;
 
 import com.desa.miprestamito.Projections.regionesParaPuntosProjection;
+import com.desa.miprestamito.Projections.tablaPuntosAtencionProjection;
 import com.desa.miprestamito.modelo.PuntosAtencion;
 import com.desa.miprestamito.servicio.PuntoAtencionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,6 +58,22 @@ public class PuntosAtencinoControlador {
     }
     }
 
+    @GetMapping("/traerTabla/{idRegion}")
+    public List<tablaPuntosAtencionProjection> traerTabla(@PathVariable(value="idRegion") Long idRegion){
+        return (List<tablaPuntosAtencionProjection>)puntosAtencionService.traerTablaPuntos(idRegion);
+    }
 
 
+    @PutMapping("/modificarpunto/{idPuntoAtencion}")
+    public ResponseEntity<PuntosAtencion> modificarPuntos(@PathVariable Long idPuntoAtencion, @RequestBody PuntosAtencion nuevoPunto){
+        PuntosAtencion puntoModificado =  puntosAtencionService.modificarPuntos(idPuntoAtencion,nuevoPunto);
+        System.out.println("este es el parametro"+idPuntoAtencion);
+        return ResponseEntity.ok(puntoModificado);
+    }
+
+
+    @GetMapping("contadorUsuarios/{idPuntoAtencion}")
+    public ResponseEntity<?> contadorUsuarios(@PathVariable Long idPuntoAtencion){
+        return  ResponseEntity.ok(puntosAtencionService.contadorUsuarios(idPuntoAtencion));
+    }
 }
