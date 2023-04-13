@@ -1,5 +1,6 @@
 package com.desa.miprestamito.controlador;
 
+import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.PuntoAtencionProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
 import com.desa.miprestamito.Projections.TipoQuejaProjection;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -40,10 +42,13 @@ public class QuejaControlador {
 
     @PostMapping("/guardar")
     public Queja guardarQueja(@RequestBody Queja queja){
+        Calendar fechaActual = Calendar.getInstance(); // Obtener la fecha y hora actual
+        queja.setFechacreacion(fechaActual);
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo guardarQueja");
         System.out.print("guardarQueja");
         return QuejaService.save(queja);
     }
+
 
     @GetMapping("/all")
     public List<Queja> listarQueja(){
@@ -55,6 +60,12 @@ public class QuejaControlador {
     public Queja listarQuejaId(@PathVariable(value = "id") Long id){
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaId");
         return QuejaService.listarId(id);
+    }
+
+    @GetMapping("/correlativo/{id}")
+    public CorrelativoProjection getCorrelativo(@PathVariable(value = "id") Long id){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo getCorrelativo");
+        return QuejaService.getCorrelativo(id);
     }
 
     @GetMapping("/Quejas-por-Usuarios/{id}")

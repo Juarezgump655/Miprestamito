@@ -44,10 +44,3 @@ public class UsuarioDetailService implements UserDetailsService {
     }
 
 }
-   /*
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        */

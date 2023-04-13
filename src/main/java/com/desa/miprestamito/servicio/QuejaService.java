@@ -1,5 +1,6 @@
 package com.desa.miprestamito.servicio;
 
+import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
 import com.desa.miprestamito.modelo.Queja;
 
@@ -20,6 +21,8 @@ public interface QuejaService {
     public List<TableReportesProjection> listarQuejasPorPuntoAtencion(Long id);
 
     public Iterable<Queja> listarQuejasPorEstado(Long estado);
+
+    public CorrelativoProjection getCorrelativo(Long correlativo);
 
 
 }
