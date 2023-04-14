@@ -25,4 +25,7 @@ public interface QuejaService {
     public CorrelativoProjection getCorrelativo(Long correlativo);
 
 
+    public List<String> findEmails(Long id);
+
+
 }

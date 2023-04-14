@@ -7,6 +7,7 @@ import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.Queja;
 import com.desa.miprestamito.modelo.Trazabilidad;
 import com.desa.miprestamito.repositorio.QuejaRepo;
+import com.desa.miprestamito.repositorio.UsuarioRepo;
 import com.desa.miprestamito.servicio.QuejaService;
 import com.desa.miprestamito.servicio.TrazabilidadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 @Service
 public class QuejaServicempl implements QuejaService {
@@ -27,17 +31,24 @@ public class QuejaServicempl implements QuejaService {
     @Autowired
     private CorreoController correoController;
 
+    @Autowired
+    private UsuarioRepo usuarioRepo;
+
+    // Crear un Executor con un pool de hilos para las tareas asíncronas
+    private Executor asyncExecutor = Executors.newFixedThreadPool(5);
 
     private static final String cuerpoCorreo = "Señor cuentahabiente,  agradecemos su comunicación,  le informamos que su queja ha sido recibida exitosamente. Para el seguimiento o cualquier consulta relacionada, no olvide que el número de su queja es: ";
     @Override
-    @Transactional
     public Queja save(Queja queja) {
         try {
             Queja queja1 = repositorio.save(queja);
-            Trazabilidad trazabilidad = new Trazabilidad(1L, queja1.getIdQueja(), queja1.getUsuariocreo());
-            trazabilidadService.guardar(trazabilidad);
-            CorrelativoProjection correlativo = getCorrelativo(queja1.getIdQueja());
-            correoController.enviarCorreo(queja1.getCorreo(), "Estimado cliente, su queja ha sido recibida",cuerpoCorreo+correlativo.getcorrelativo());
+            CompletableFuture.runAsync(() -> {
+                Trazabilidad trazabilidad = new Trazabilidad(1L, queja.getIdQueja(), queja.getUsuariocreo());
+                trazabilidadService.guardar(trazabilidad);
+                CorrelativoProjection correlativo = getCorrelativo(queja1.getIdQueja());
+                enviarCorreoCentralizador(queja.getIdPuntoAtencion());
+                correoController.enviarCorreo(queja.getCorreo(), "Estimado cliente, su queja ha sido recibida",cuerpoCorreo+correlativo.getcorrelativo());
+            }, asyncExecutor);
             return  queja1;
         } catch (Exception e) {
             throw new ResourceNotFoundException("No se pudo guardar la queja");
@@ -87,8 +98,23 @@ public class QuejaServicempl implements QuejaService {
         return repositorio.findByCorrelativ(correlativo);
     }
 
+    @Override
+    public List<String> findEmails(Long id) {
+        return usuarioRepo.findEmails(id);
+    }
+
     public void enviarCorreo(String correo, String asunto, String mensaje) {
     	correoController.enviarCorreo(correo, asunto, mensaje);
+    }
+
+    public static final String asunto = "Se a ingresado una nueva queja";
+    public static final String mensaje = "El sistema de quejas le informa que se ha recibido una queja, la cual debe ser asignada dentro de las próximas 24 horas.";
+    public void  enviarCorreoCentralizador(Long id) {
+        List<String> correos = findEmails(id);
+        for (String correo : correos) {
+            System.out.println(correo);
+            correoController.enviarCorreo(correo, asunto, mensaje);
+        }
     }
 
 
