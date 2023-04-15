@@ -1,5 +1,8 @@
 package com.desa.miprestamito.servicio.impl;
 
+import com.desa.miprestamito.Projections.tablaUsersProjection;
+import com.desa.miprestamito.Projections.traerCargoProjection;
+import com.desa.miprestamito.Projections.traerPaProjection;
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.Usuario;
 import com.desa.miprestamito.repositorio.UsuarioRepo;
@@ -38,6 +41,21 @@ public class UsuarioServicempl implements UsuarioServicio {
     @Transactional(readOnly = true)
     public Optional<Usuario> findbyCorreo(String correo) {
         return repositorio.findByCorreo(correo);
+    }
+
+    @Override
+    public  List<tablaUsersProjection> tablaUsuarios(){
+        return repositorio.tablaUsuarios();
+    }
+
+    @Override
+    public List<traerPaProjection> traerPuntos(){
+        return repositorio.traerPuntos();
+    }
+
+    @Override
+    public List<traerCargoProjection> traerCargo(){
+        return repositorio.traerCargo();
     }
 
 

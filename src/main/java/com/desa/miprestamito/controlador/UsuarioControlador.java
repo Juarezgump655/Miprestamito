@@ -1,11 +1,15 @@
 package com.desa.miprestamito.controlador;
 
+import com.desa.miprestamito.Projections.tablaUsersProjection;
+import com.desa.miprestamito.Projections.traerCargoProjection;
+import com.desa.miprestamito.Projections.traerPaProjection;
 import com.desa.miprestamito.modelo.Usuario;
 import com.desa.miprestamito.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +51,24 @@ public class UsuarioControlador {
         logger.log(Level.INFO, "Se ejecuta el metodo buscarPorUsername");
         return usuarioServices.findbyCorreo(correo);
     }
+
+    @GetMapping("/tablaUsuarios")
+    public List<tablaUsersProjection> traerTabla(){
+        return (List<tablaUsersProjection>) usuarioServices.tablaUsuarios();
+    }
+
+    @GetMapping("/traerPuntos")
+    public List<traerPaProjection> traerPuntos(){
+
+        return(List<traerPaProjection>) usuarioServices.traerPuntos();
+
+    }
+
+    @GetMapping("/traerCargo")
+    public List<traerCargoProjection> traerCargo(){
+        return (List<traerCargoProjection>) usuarioServices.traerCargo();
+    }
+
 
 
 }

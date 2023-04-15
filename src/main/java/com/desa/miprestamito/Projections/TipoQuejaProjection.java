@@ -8,4 +8,6 @@ public interface TipoQuejaProjection {
 
     String getDescripcionQueja();
 
+    String getEstado();
+
 }

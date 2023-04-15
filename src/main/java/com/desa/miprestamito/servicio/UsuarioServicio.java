@@ -1,5 +1,8 @@
 package com.desa.miprestamito.servicio;
 
+import com.desa.miprestamito.Projections.tablaUsersProjection;
+import com.desa.miprestamito.Projections.traerCargoProjection;
+import com.desa.miprestamito.Projections.traerPaProjection;
 import com.desa.miprestamito.modelo.Usuario;
 
 
@@ -15,5 +18,10 @@ public interface UsuarioServicio {
     public Usuario listarId(Long id);
     public Optional<Usuario>  findbyCorreo(String correo);
 
+    public  List<tablaUsersProjection> tablaUsuarios();
+
+    public List<traerPaProjection> traerPuntos();
+
+    public List<traerCargoProjection> traerCargo();
 
 }

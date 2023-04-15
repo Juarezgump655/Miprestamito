@@ -9,12 +9,13 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
-@Table(name = "tipo_queja")
+@Table(name = "tipo_quejas")
 @Getter
 @Setter
 public class TipoQueja  implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id_tipo_queja", unique = true, nullable = false)
     private Long idTipoQueja;
 
@@ -29,12 +30,12 @@ public class TipoQueja  implements Serializable {
     private String usuariocreo;
 
 
-    @Column(name = "fechacreacion", updatable = false, nullable = false)
+    @Column(name = "fechacreacion", insertable = false,updatable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
     private Calendar fechacreacion;
 
-    @Column(name = "fechamodificacion", nullable = false)
+    @Column(name = "fechamodificacion", insertable = false, updatable = true,columnDefinition = "DATE DEFAULT CURRENT_DATE")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
     private Calendar fechamodificacion;
