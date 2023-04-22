@@ -35,7 +35,7 @@ public interface PuntosAtencionRepo extends JpaRepository<PuntosAtencion, Long> 
         "\t    pa.id_estado = e.id_estado \n" +
         "\t    inner join public.region r on\n" +
         "\t    pa.id_region = r.id_region \n" +
-        "\t    where pa.id_region= ?1", nativeQuery = true)
+        "\t    where pa.id_region= ?1 and pa.id_estado =1", nativeQuery = true)
     List<tablaPuntosAtencionProjection>traerTablaPuntos(Long idRegion);
 
 

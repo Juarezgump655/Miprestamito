@@ -21,7 +21,8 @@ public interface UsuarioServicio {
     public  List<tablaUsersProjection> tablaUsuarios();
 
     public List<traerPaProjection> traerPuntos();
-
     public List<traerCargoProjection> traerCargo();
+
+    public Usuario modificarUsuario (Long idUsuario, Usuario Usuario1);
 
 }

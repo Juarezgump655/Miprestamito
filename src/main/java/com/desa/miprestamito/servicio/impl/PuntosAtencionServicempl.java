@@ -80,7 +80,7 @@ public class PuntosAtencionServicempl implements PuntoAtencionService {
 
             repositorio.save(punto1);
             if (puntoModificado.getEstado()==2L) {
-                List<Usuario> usuarios= repositorioUsuario.findUsuarioByIdpuntoatecion(puntoAtencion);
+                List<Usuario> usuarios= repositorioUsuario.findUsuarioByIdpuntoatencion(puntoAtencion);
                 for (Usuario usuario : usuarios) {
                     usuario.setEstado(2L);
                     repositorioUsuario.save(usuario);

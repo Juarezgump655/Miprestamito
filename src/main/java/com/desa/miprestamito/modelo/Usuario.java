@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
     private Long rol;
 
     @Column(name= "id_puntoatencion")
-    private Long idpuntoatecion;
+    private Long idpuntoatencion;
 
     @Column(name= "no_telefono",nullable = false)
     private String telefono;

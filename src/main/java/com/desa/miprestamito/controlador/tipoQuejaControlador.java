@@ -44,5 +44,8 @@ public class tipoQuejaControlador {
         return ResponseEntity.ok(newTipoqueja);
     }
 
-
+    @GetMapping("/contSiglas/{siglasQueja}")
+    public ResponseEntity<?>contSiglas(@PathVariable String siglasQueja){
+        return ResponseEntity.ok(service.contSiglasQueja(siglasQueja));
+    }
 }

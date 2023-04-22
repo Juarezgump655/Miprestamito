@@ -1,6 +1,7 @@
 package com.desa.miprestamito.servicio.impl;
 
 import com.desa.miprestamito.Projections.TipoQuejaProjection;
+import com.desa.miprestamito.Projections.contTipoQuejaProjection;
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.TipoQueja;
 import com.desa.miprestamito.repositorio.TipoQuejaRepo;
@@ -45,6 +46,11 @@ public class TIpoQuejaServiceImpl implements TipoQuejaService {
             }else{
                 throw new ResourceNotFoundException("El objeto TipoQueja con identificador " + idTipoQueja + " no existe en el repositorio.");
             }
+    }
+
+
+    public contTipoQuejaProjection contSiglasQueja(String siglasQueja){
+        return tipoQuejaRepo.contSiglasQueja(siglasQueja);
     }
 
 

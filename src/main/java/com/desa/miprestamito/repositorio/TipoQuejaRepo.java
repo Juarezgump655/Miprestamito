@@ -1,6 +1,7 @@
 package com.desa.miprestamito.repositorio;
 
 import com.desa.miprestamito.Projections.TipoQuejaProjection;
+import com.desa.miprestamito.Projections.contTipoQuejaProjection;
 import com.desa.miprestamito.modelo.TipoQueja;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -17,5 +18,7 @@ public interface TipoQuejaRepo extends CrudRepository<TipoQueja, Long> {
 
      List<TipoQuejaProjection> listarTipoQueja();
 
-
+     @Query(value = "select count(*) from public.tipo_quejas tq where tq.siglas_queja = ?1 and tq.id_estado=1",
+             nativeQuery = true)
+     public contTipoQuejaProjection contSiglasQueja( String siglasQueja);
 }

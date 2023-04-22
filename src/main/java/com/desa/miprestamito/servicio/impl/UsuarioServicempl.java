@@ -58,5 +58,30 @@ public class UsuarioServicempl implements UsuarioServicio {
         return repositorio.traerCargo();
     }
 
+    @Override
+    public Usuario modificarUsuario(Long idUsuario, Usuario Usuario1){
+        Optional<Usuario> usuarioModificar= repositorio.findById(idUsuario);
+        if(usuarioModificar.isPresent()){
+            Usuario newUsuario= usuarioModificar.get();
+
+            newUsuario.setNombre(Usuario1.getNombre());
+            newUsuario.setApellidos(Usuario1.getApellidos());
+            newUsuario.setIdpuntoatencion(Usuario1.getIdpuntoatencion());
+            newUsuario.setDpi(Usuario1.getDpi());
+            newUsuario.setCorreo(Usuario1.getCorreo());
+            newUsuario.setId_cargo(Usuario1.getId_cargo());
+            newUsuario.setEstado(Usuario1.getEstado());
+            newUsuario.setFechamodificacion(Usuario1.getFechamodificacion());
+            newUsuario.setUsuariomodifico(Usuario1.getUsuariomodifico());
+
+            repositorio.save(newUsuario);
+            return newUsuario;
+
+        }else{
+            throw new ResourceNotFoundException("El objeto Usuario con identificador " + idUsuario + " no existe en el repositorio.");
+        }
+    }
+
+
 
 }

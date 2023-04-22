@@ -6,6 +6,7 @@ import com.desa.miprestamito.Projections.traerPaProjection;
 import com.desa.miprestamito.modelo.Usuario;
 import com.desa.miprestamito.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,6 +70,11 @@ public class UsuarioControlador {
         return (List<traerCargoProjection>) usuarioServices.traerCargo();
     }
 
+    @PutMapping("/modificarUsuario/{idUsuario}")
+    public ResponseEntity<Usuario> modificarUsuario(@PathVariable Long idUsuario, @RequestBody Usuario nuevoUsuario){
+        Usuario Usuario1= usuarioServices.modificarUsuario(idUsuario, nuevoUsuario);
+        return  ResponseEntity.ok(Usuario1);
+    }
 
 
 }

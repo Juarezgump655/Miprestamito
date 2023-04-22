@@ -2,7 +2,7 @@ package com.desa.miprestamito.Projections;
 
 public interface PuntoAtencionProjection {
 
-    String getIdPuntoAtencion();
+   Long getIdPuntoAtencion();
 
     String getNombrePuntoAtencion();
 }

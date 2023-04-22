@@ -20,7 +20,7 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByCorreo(String correo);
 
 
-    List<Usuario> findUsuarioByIdpuntoatecion(Long idPuntoAtencion);
+    List<Usuario> findUsuarioByIdpuntoatencion(Long idPuntoAtencion);
 
     @Query(value = "select u.correo  from usuarios u where id_cargo =6 and id_puntoatencion = :id and estado =1" , nativeQuery = true)
     public List<String> findEmails(@Param("id") Long id);
@@ -39,7 +39,8 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Long> {
             " inner join public.cargo c on\n" +
             " u.id_cargo = c.id_cargo \n" +
             "  inner join public.region r on\n" +
-            " pa.id_region =r.id_region ",nativeQuery = true)
+            " pa.id_region =r.id_region " +
+            "where u.estado =1",nativeQuery = true)
    public  List<tablaUsersProjection> tablaUsuarios();
 
 
@@ -51,4 +52,5 @@ public List<traerPaProjection> traerPuntos();
         "from public.cargo c where c.estado =1 and c.id_cargo >= 1 and c.id_cargo <= 7",nativeQuery = true)
     public List<traerCargoProjection> traerCargo();
 }
+
 
