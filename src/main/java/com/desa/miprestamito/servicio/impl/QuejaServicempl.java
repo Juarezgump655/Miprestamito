@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -36,7 +38,7 @@ public class QuejaServicempl implements QuejaService {
 
     // Crear un Executor con un pool de hilos para las tareas asíncronas
     private Executor asyncExecutor = Executors.newFixedThreadPool(5);
-
+    private static Date date = new Date();
     private static final String cuerpoCorreo = "Señor cuentahabiente,  agradecemos su comunicación,  le informamos que su queja ha sido recibida exitosamente. Para el seguimiento o cualquier consulta relacionada, no olvide que el número de su queja es: ";
     @Override
     public Queja save(Queja queja) {

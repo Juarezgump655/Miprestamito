@@ -5,9 +5,12 @@ public class AuthenticationResponse {
 
     private String nombre;
 
-    public AuthenticationResponse(String jwt, String nombre) {
+    private String Rol;
+
+    public AuthenticationResponse(String jwt, String nombre, String Rol) {
         this.nombre = nombre;
         this.jwt = jwt;
+        this.Rol = Rol;
     }
 
     public String getJwt() {
@@ -23,5 +26,13 @@ public class AuthenticationResponse {
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getRol() {
+        return Rol;
+    }
+
+    public void setRol(String Rol) {
+        this.Rol = Rol;
     }
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "trazabilidad")
@@ -30,10 +31,9 @@ public class Trazabilidad implements Serializable {
     @Column(name ="usuario_ingreso", nullable =false)
     private String usuarioIngreso;
 
-    @Column(name = "fecha_ingreso", columnDefinition = "DATE DEFAULT CURRENT_DATE", updatable = false)
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    @Temporal(TemporalType.DATE)
-    private Calendar fechaIngreso;
+    @Column(name = "fecha_ingreso", columnDefinition = "DATE DEFAULT CURRENT_DATE", updatable = false, insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaIngreso;
     @Column(name = "fechamodifico")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)

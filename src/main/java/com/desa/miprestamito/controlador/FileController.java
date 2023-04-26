@@ -28,9 +28,9 @@ public class FileController {
     @Autowired
     private FileServiceAPI fileServiceAPI;
 
-    @PostMapping("/upload")
-    public ResponseEntity<Response> uploadFiles(@RequestParam("files") List<MultipartFile> files) throws Exception {
-        fileServiceAPI.save(files);
+    @PostMapping("/upload/{correlativo}")
+    public ResponseEntity<Response> uploadFiles(@RequestParam("files") List<MultipartFile> files, @PathVariable(value = "correlativo") String correlativo) throws Exception {
+        fileServiceAPI.save(files,correlativo);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new Response("Los archivos fueron cargados correctamente al servidor"));
     }

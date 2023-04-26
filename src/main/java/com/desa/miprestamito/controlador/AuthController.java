@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,10 +52,11 @@ public class AuthController {
             UserDetails userDetails = usuarioDetailService.loadUserByUsername(request.getUsername());
             logger.log(Level.INFO, "se ejecuta el metodo createToken despues de authenticate");
             String jwt = jwtUtil.generateToken(userDetails);
-            String nombre = getDpi(request.getUsername());
+            String nombre = getDpi(request.getUsername()).get("dpi");
+            String rol = getDpi(request.getUsername()).get("rol");
 
 
-            return new ResponseEntity<>(new AuthenticationResponse(jwt, nombre), HttpStatus.OK);
+            return new ResponseEntity<>(new AuthenticationResponse(jwt, nombre, rol), HttpStatus.OK);
            } catch (BadCredentialsException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
            }
@@ -64,11 +67,17 @@ public class AuthController {
     }
 
 
-    public String getDpi(String username){
+    public Map<String, String> getDpi(String username){
         Optional<Usuario> usuario = usuarioServicio.findbyCorreo(username);
         String dpi = usuario.get().getDpi();
-        return dpi;
+        String rol = usuario.get().getRol()+"";
+
+        Map<String, String> response = new HashMap<>();
+        response.put("dpi", dpi);
+        response.put("rol", rol);
+        return response;
     }
+
 
     public String getContraseña(String username){
         Optional<Usuario> usuario = usuarioServicio.findbyCorreo(username);
