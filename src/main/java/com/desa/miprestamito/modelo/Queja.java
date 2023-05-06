@@ -51,6 +51,7 @@ public class Queja implements Serializable {
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
     private Calendar fechacreacion;
+
     @Column(name = "fechamodificacion")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)

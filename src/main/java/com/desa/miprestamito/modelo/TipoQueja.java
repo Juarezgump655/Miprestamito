@@ -35,7 +35,7 @@ public class TipoQueja  implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar fechacreacion;
 
-    @Column(name = "fechamodificacion", insertable = false, updatable = true,columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    @Column(name = "fechamodificacion")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
     private Calendar fechamodificacion;

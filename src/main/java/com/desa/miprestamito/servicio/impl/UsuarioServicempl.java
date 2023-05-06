@@ -1,5 +1,6 @@
 package com.desa.miprestamito.servicio.impl;
 
+import com.desa.miprestamito.Projections.contUsuariosProjection;
 import com.desa.miprestamito.Projections.tablaUsersProjection;
 import com.desa.miprestamito.Projections.traerCargoProjection;
 import com.desa.miprestamito.Projections.traerPaProjection;
@@ -67,7 +68,6 @@ public class UsuarioServicempl implements UsuarioServicio {
             newUsuario.setNombre(Usuario1.getNombre());
             newUsuario.setApellidos(Usuario1.getApellidos());
             newUsuario.setIdpuntoatencion(Usuario1.getIdpuntoatencion());
-            newUsuario.setDpi(Usuario1.getDpi());
             newUsuario.setCorreo(Usuario1.getCorreo());
             newUsuario.setId_cargo(Usuario1.getId_cargo());
             newUsuario.setEstado(Usuario1.getEstado());
@@ -82,6 +82,8 @@ public class UsuarioServicempl implements UsuarioServicio {
         }
     }
 
-
+    public contUsuariosProjection contUsuarios(String dpi){
+        return repositorio.contUsuarios(dpi);
+    }
 
 }

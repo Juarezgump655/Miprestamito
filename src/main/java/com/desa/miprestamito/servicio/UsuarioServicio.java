@@ -1,5 +1,6 @@
 package com.desa.miprestamito.servicio;
 
+import com.desa.miprestamito.Projections.contUsuariosProjection;
 import com.desa.miprestamito.Projections.tablaUsersProjection;
 import com.desa.miprestamito.Projections.traerCargoProjection;
 import com.desa.miprestamito.Projections.traerPaProjection;
@@ -24,5 +25,7 @@ public interface UsuarioServicio {
     public List<traerCargoProjection> traerCargo();
 
     public Usuario modificarUsuario (Long idUsuario, Usuario Usuario1);
+
+    public contUsuariosProjection contUsuarios(String dpi);
 
 }

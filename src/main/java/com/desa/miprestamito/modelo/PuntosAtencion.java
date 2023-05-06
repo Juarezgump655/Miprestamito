@@ -33,12 +33,13 @@ public class PuntosAtencion implements Serializable {
     @Column(name = "fechacreacion", insertable = false,updatable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
-    private Date fechacreacion;
+    private Calendar fechacreacion;
 
-    @Column(name = "fechamodificacion",insertable = false, updatable = true,columnDefinition = "DATE DEFAULT CURRENT_DATE")
+
+    @Column(name = "fechamodificacion")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
-    private Date fechamodificacion;
+    private Calendar fechamodificacion;
 
     @Column(name ="usuariomodifico", nullable =false)
     private String usuariomodifico;

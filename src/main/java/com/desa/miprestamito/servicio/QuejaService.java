@@ -2,6 +2,7 @@ package com.desa.miprestamito.servicio;
 
 import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
+import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
 import com.desa.miprestamito.modelo.Queja;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public interface QuejaService {
 
 
     public List<String> findEmails(Long id);
+
+    public List<tablaAsignacionQuejaProjection> tablaAsignacionQueja();
 
 
 }

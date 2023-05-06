@@ -1,6 +1,7 @@
 package com.desa.miprestamito.repositorio;
 
 
+import com.desa.miprestamito.Projections.contUsuariosProjection;
 import com.desa.miprestamito.Projections.tablaUsersProjection;
 import com.desa.miprestamito.Projections.traerCargoProjection;
 import com.desa.miprestamito.Projections.traerPaProjection;
@@ -25,12 +26,15 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Long> {
     @Query(value = "select u.correo  from usuarios u where id_cargo =6 and id_puntoatencion = :id and estado =1" , nativeQuery = true)
     public List<String> findEmails(@Param("id") Long id);
     @Query(value = "select  u.idusuario as idUsuario,\n" +
-            "\t   (u.nombre || ' ' || u.apellidos ) as nombreUsuario,\n" +
+            "\t   u.nombre  as nombreUsuario,\n" +
+            "\t   u.apellidos  as apellidosUsuario,\n" +
             "\t   r.nombre as region,\n" +
             "\t   pa.nombre_punto_atencion as PuntoAtencion,\n" +
             "\t   c.nombre_cargo as cargo,\n" +
             "\t   u.correo as correo,\n" +
-            "\t   e.nombre as estado\n" +
+            "\t   e.nombre as estado,\n"+
+            "\t   u.id_cargo as idCargo,\n" +
+            "\t   u.id_puntoatencion as idPuntoAtencion \n" +
             "from public.usuarios u \n" +
             " inner join public.estado e on\n" +
             " u.estado = e.id_estado \n" +
@@ -51,6 +55,15 @@ public List<traerPaProjection> traerPuntos();
 @Query(value = "select c.id_cargo as idCargo, c.nombre_cargo as nombreCargo \n" +
         "from public.cargo c where c.estado =1 and c.id_cargo >= 1 and c.id_cargo <= 7",nativeQuery = true)
     public List<traerCargoProjection> traerCargo();
+
+@Query(value="select count(*),pa.nombre_punto_atencion as nombrePunto from public.usuarios u \n" +
+        "\tinner join public.puntos_atencion pa on \n" +
+        "\tu.id_puntoatencion = pa.id_punto_atencion \n" +
+        "\twhere u.dpi = ?1 and u.estado=1 GROUP BY pa.nombre_punto_atencion",nativeQuery = true)
+    public contUsuariosProjection contUsuarios(String dpi);
+
+
+
 }
 
 

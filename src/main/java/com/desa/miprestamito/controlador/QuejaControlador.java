@@ -1,9 +1,6 @@
 package com.desa.miprestamito.controlador;
 
-import com.desa.miprestamito.Projections.CorrelativoProjection;
-import com.desa.miprestamito.Projections.PuntoAtencionProjection;
-import com.desa.miprestamito.Projections.TableReportesProjection;
-import com.desa.miprestamito.Projections.TipoQuejaProjection;
+import com.desa.miprestamito.Projections.*;
 import com.desa.miprestamito.modelo.MedioIngeresoQueja;
 import com.desa.miprestamito.modelo.Queja;
 import com.desa.miprestamito.repositorio.TipoQuejaRepo;
@@ -109,6 +106,11 @@ public class QuejaControlador {
     public List<TipoQuejaProjection> listarTipoQueja(){
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarTipoQueja ");
         return(List<TipoQuejaProjection>) tipoQuejaRepo.listarTipoQueja();
+    }
+
+    @GetMapping("/tablaAsignacionQueja")
+    public List<tablaAsignacionQuejaProjection> tablaAsignacionQueja(){
+        return(List<tablaAsignacionQuejaProjection>) QuejaService.tablaAsignacionQueja();
     }
 
 

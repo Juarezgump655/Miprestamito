@@ -2,6 +2,7 @@ package com.desa.miprestamito.servicio.impl;
 
 import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
+import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
 import com.desa.miprestamito.controlador.CorreoController;
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.Queja;
@@ -117,6 +118,12 @@ public class QuejaServicempl implements QuejaService {
             System.out.println(correo);
             correoController.enviarCorreo(correo, asunto, mensaje);
         }
+    }
+
+
+
+    public List<tablaAsignacionQuejaProjection> tablaAsignacionQueja(){
+        return repositorio.tablaAsignacionQueja();
     }
 
 

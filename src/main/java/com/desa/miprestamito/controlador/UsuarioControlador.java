@@ -1,5 +1,6 @@
 package com.desa.miprestamito.controlador;
 
+import com.desa.miprestamito.Projections.contUsuariosProjection;
 import com.desa.miprestamito.Projections.tablaUsersProjection;
 import com.desa.miprestamito.Projections.traerCargoProjection;
 import com.desa.miprestamito.Projections.traerPaProjection;
@@ -75,6 +76,11 @@ public class UsuarioControlador {
         Usuario Usuario1= usuarioServices.modificarUsuario(idUsuario, nuevoUsuario);
         return  ResponseEntity.ok(Usuario1);
     }
+
+@GetMapping("/contUsuario/{dpi}")
+    public contUsuariosProjection contUsuarios(@PathVariable String dpi){
+        return usuarioServices.contUsuarios(dpi);
+}
 
 
 }

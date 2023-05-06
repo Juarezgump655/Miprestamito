@@ -2,6 +2,7 @@ package com.desa.miprestamito.repositorio;
 
 import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
+import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
 import com.desa.miprestamito.modelo.Queja;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -35,6 +36,11 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
 
     @Query(value = "SELECT q.correlativo as correlativo FROM public.queja q WHERE q.id_queja = :correlativo", nativeQuery = true)
     public CorrelativoProjection findByCorrelativ(Long correlativo);
+
+
+    @Query(value = "select q.id_queja as idQueja , q.correlativo as correlativo, q.fechacreacion as fechaCreacion from public.queja q where q.id_estado =1;",
+    nativeQuery = true)
+    public List<tablaAsignacionQuejaProjection> tablaAsignacionQueja();
 
 
 }
