@@ -126,6 +126,24 @@ public class QuejaServicempl implements QuejaService {
         return repositorio.tablaAsignacionQueja();
     }
 
+    @Override
+    public List<TableReportesProjection> findByCorrelativo(String correlativo) {
+        return repositorio.findByCorrelativo(correlativo);
+    }
 
+    @Override
+    public List<TableReportesProjection> findByPuntoAtencion(Long puntoAtencion) {
+        return repositorio.findByPuntoAtencion(puntoAtencion);
+    }
+
+    @Override
+    public List<TableReportesProjection> findByRegion(Long region) {
+        return repositorio.findByRegion(region);
+    }
+
+    @Override
+    public List<TableReportesProjection> listarQuejasFechas(String fechaInicio, String fechaFin){
+        return repositorio.findByFechas(fechaInicio, fechaFin);
+    }
 
 }

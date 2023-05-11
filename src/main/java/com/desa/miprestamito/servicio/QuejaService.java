@@ -4,7 +4,9 @@ import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
 import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
 import com.desa.miprestamito.modelo.Queja;
+import org.springframework.data.repository.query.Param;
 
+import javax.persistence.Table;
 import java.util.List;
 
 public interface QuejaService {
@@ -25,10 +27,14 @@ public interface QuejaService {
 
     public CorrelativoProjection getCorrelativo(Long correlativo);
 
-
+    public List<TableReportesProjection> listarQuejasFechas(String fechaInicio, String fechaFin);
     public List<String> findEmails(Long id);
 
     public List<tablaAsignacionQuejaProjection> tablaAsignacionQueja();
 
+    public List<TableReportesProjection> findByCorrelativo(String correlativo);
 
+    public List<TableReportesProjection> findByPuntoAtencion(Long puntoAtencion);
+
+    public  List<TableReportesProjection> findByRegion( Long region);
 }

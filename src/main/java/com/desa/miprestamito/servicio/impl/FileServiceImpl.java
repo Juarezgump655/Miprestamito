@@ -18,7 +18,7 @@ public class FileServiceImpl implements FileServiceAPI {
     public void save(MultipartFile file, String correlativo) throws Exception {
         String nombreFila =file.getOriginalFilename().replace(" ", "_");
         System.out.println(nombreFila);
-        Files.copy(file.getInputStream(), this.rootFolder.resolve(correlativo));
+        Files.copy(file.getInputStream(), this.rootFolder.resolve(correlativo+".pdf"));
     }
 
     @Override

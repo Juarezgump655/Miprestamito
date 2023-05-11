@@ -69,7 +69,9 @@ public class Queja implements Serializable {
 
     @Column(name= "no_telefono",nullable = false)
     private String telefono;
-
+    @Column(name="fecha_final")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaFinal;
     @Column(name= "correo",nullable = false)
     private String correo;
 }

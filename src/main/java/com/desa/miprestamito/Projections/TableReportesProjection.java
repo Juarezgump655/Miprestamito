@@ -14,4 +14,6 @@ public interface TableReportesProjection {
 
     Date getFechaCreacion();
     String getDetalle();
+
+    String getTiempoOperacion();
 }

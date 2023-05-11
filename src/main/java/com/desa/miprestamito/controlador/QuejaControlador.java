@@ -7,6 +7,7 @@ import com.desa.miprestamito.repositorio.TipoQuejaRepo;
 import com.desa.miprestamito.servicio.MedioIngresoQuejaService;
 import com.desa.miprestamito.servicio.PuntoAtencionService;
 import com.desa.miprestamito.servicio.QuejaService;
+import com.desa.miprestamito.servicio.TrazabilidadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,9 @@ public class QuejaControlador {
 
     @Autowired
     private TipoQuejaRepo tipoQuejaRepo;
+
+    @Autowired
+    private TrazabilidadService trazabilidadService;
 
     private static Logger logger
             = Logger.getLogger(
@@ -111,6 +115,38 @@ public class QuejaControlador {
     @GetMapping("/tablaAsignacionQueja")
     public List<tablaAsignacionQuejaProjection> tablaAsignacionQueja(){
         return(List<tablaAsignacionQuejaProjection>) QuejaService.tablaAsignacionQueja();
+    }
+
+
+    @GetMapping("/quejasPorFechas/{fechaInicio}/{fechaFin}")
+    public List<TableReportesProjection> listarQuejasFechas(@PathVariable(value = "fechaInicio") String fechaInicio, @PathVariable(value = "fechaFin") String fechaFin){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejasFechas ");
+        return(List<TableReportesProjection>) QuejaService.listarQuejasFechas(fechaInicio, fechaFin);
+    }
+
+    @GetMapping("/quejaPorCorrelativo/{correlativo}")
+    public List<TableReportesProjection> listarQuejaPorCorrelativo(@PathVariable(value = "correlativo") String correlativo){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejaPorCorrelativo ");
+        return(List<TableReportesProjection>) QuejaService.findByCorrelativo(correlativo);
+    }
+
+
+     @GetMapping("/quejaPorPuntoAtencion/{idPuntoAtencion}")
+    public List<TableReportesProjection> listarQuejasPorPuntoAtencion(@PathVariable(value = "idPuntoAtencion") Long idPuntoAtencion){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejasPorPuntoAtencion ");
+        return(List<TableReportesProjection>) QuejaService.listarQuejasPorPuntoAtencion(idPuntoAtencion);
+    }
+
+    @GetMapping("/quejasPorRegion/{idRegion}")
+    public List<TableReportesProjection> listarQuejasPorRegion(@PathVariable(value = "idRegion") Long idRegion){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejasPorRegion ");
+        return(List<TableReportesProjection>) QuejaService. findByRegion(idRegion);
+    }
+
+    @GetMapping("/TrazabilidadCorrelativo/{correlativo}")
+    public List<TrazabilidadProjection> listarTrazabildadCorrelativo(@PathVariable(value = "correlativo") String correlativo){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarTrazabildadCorrelativo ");
+        return(List<TrazabilidadProjection>) trazabilidadService.traerTrazabilidadPorCorrelativo(correlativo);
     }
 
 

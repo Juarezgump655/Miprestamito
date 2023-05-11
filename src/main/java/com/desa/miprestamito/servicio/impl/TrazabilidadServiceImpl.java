@@ -1,5 +1,6 @@
 package com.desa.miprestamito.servicio.impl;
 
+import com.desa.miprestamito.Projections.TrazabilidadProjection;
 import com.desa.miprestamito.modelo.Trazabilidad;
 import com.desa.miprestamito.repositorio.TrazabilidadRepo;
 import com.desa.miprestamito.servicio.TrazabilidadService;
@@ -25,5 +26,10 @@ public class TrazabilidadServiceImpl implements TrazabilidadService {
     @Transactional
     public Trazabilidad guardar(Trazabilidad trazabilidad) {
         return trazabilidadRepo.save(trazabilidad);
+    }
+
+    @Override
+    public List<TrazabilidadProjection> traerTrazabilidadPorCorrelativo(String corretivo) {
+        return trazabilidadRepo.traerTrazabilidadPorCorrelativo(corretivo);
     }
 }
