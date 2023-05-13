@@ -50,12 +50,7 @@ public class PuntosAtencinoControlador {
     @GetMapping("/traerRegiones")
     public List<regionesParaPuntosProjection>traerRegiones(){
         logger.log(Level.INFO, "Se ejecuta el metodo traerRegiones");
-    if (this.catalogoRegiones==null){
-        this.catalogoRegiones= puntosAtencionService.traerRegiones();
-        return this.catalogoRegiones;
-    }else{
-        return this.catalogoRegiones;
-    }
+        return this.catalogoRegiones= puntosAtencionService.traerRegiones();
     }
 
     @GetMapping("/traerTabla/{idRegion}")
