@@ -2,6 +2,7 @@ package com.desa.miprestamito.repositorio;
 
 import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
+import com.desa.miprestamito.Projections.fichaQuejaProjection;
 import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
 import com.desa.miprestamito.modelo.Queja;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -100,4 +101,22 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
             "\t\t\tWHERE r.id_region  =  :region\n" +
             "\t\t\tGROUP BY q.correlativo, pa.nombre_punto_atencion, r.nombre, e.nombre_estado_solicitud, m.nombre_medio, q.fecha_hora_ingreso, q.detalle_queja, q.fecha_final;\n", nativeQuery = true)
     public  List<TableReportesProjection> findByRegion(@Param("region") Long region);
+
+    @Query(value = "select  q.correlativo  as correlativo, \n" +
+
+
+            "\t\tmiq.nombre_medio as nombreMedio,\n" +
+            "\t\tq.fecha_hora_ingreso as fechaIngreso,\n" +
+            "\t\ttq.descripcion_queja as descripcionTipoQueja,\n" +
+            "\t\tq.detalle_queja as detalleQueja\n" +
+            "from public.queja q \n" +
+            "inner join public.medio_ingreso_queja miq on\n" +
+            "q.id_medio_ingreso_queja = miq.id_medio_ingreso_queja \n" +
+            "inner join public.tipo_quejas tq on\n" +
+            "q.id_tipo_queja = tq.id_tipo_queja\n" +
+            "where q.id_queja =?1",nativeQuery = true)
+    public fichaQuejaProjection fichaQueja(Long idQueja);
+
+
+
 }

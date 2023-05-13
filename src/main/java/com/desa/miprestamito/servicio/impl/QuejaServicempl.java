@@ -2,6 +2,7 @@ package com.desa.miprestamito.servicio.impl;
 
 import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
+import com.desa.miprestamito.Projections.fichaQuejaProjection;
 import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
 import com.desa.miprestamito.controlador.CorreoController;
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
@@ -135,6 +136,9 @@ public class QuejaServicempl implements QuejaService {
     public List<TableReportesProjection> findByPuntoAtencion(Long puntoAtencion) {
         return repositorio.findByPuntoAtencion(puntoAtencion);
     }
+    public fichaQuejaProjection fichaQueja(Long idQueja){
+        return repositorio.fichaQueja(idQueja);
+    }
 
     @Override
     public List<TableReportesProjection> findByRegion(Long region) {
@@ -145,5 +149,9 @@ public class QuejaServicempl implements QuejaService {
     public List<TableReportesProjection> listarQuejasFechas(String fechaInicio, String fechaFin){
         return repositorio.findByFechas(fechaInicio, fechaFin);
     }
+
+
+
+
 
 }

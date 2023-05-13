@@ -2,6 +2,7 @@ package com.desa.miprestamito.servicio;
 
 import com.desa.miprestamito.Projections.CorrelativoProjection;
 import com.desa.miprestamito.Projections.TableReportesProjection;
+import com.desa.miprestamito.Projections.fichaQuejaProjection;
 import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
 import com.desa.miprestamito.modelo.Queja;
 import org.springframework.data.repository.query.Param;
@@ -33,6 +34,7 @@ public interface QuejaService {
     public List<tablaAsignacionQuejaProjection> tablaAsignacionQueja();
 
     public List<TableReportesProjection> findByCorrelativo(String correlativo);
+    public fichaQuejaProjection fichaQueja(Long idQueja);
 
     public List<TableReportesProjection> findByPuntoAtencion(Long puntoAtencion);
 

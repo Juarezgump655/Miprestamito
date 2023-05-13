@@ -117,6 +117,10 @@ public class QuejaControlador {
         return(List<tablaAsignacionQuejaProjection>) QuejaService.tablaAsignacionQueja();
     }
 
+    @GetMapping("/fichaQueja/{idQueja}")
+    public fichaQuejaProjection fichaQueja(@PathVariable Long idQueja){
+        return (fichaQuejaProjection) QuejaService.fichaQueja(idQueja);
+    }
 
     @GetMapping("/quejasPorFechas/{fechaInicio}/{fechaFin}")
     public List<TableReportesProjection> listarQuejasFechas(@PathVariable(value = "fechaInicio") String fechaInicio, @PathVariable(value = "fechaFin") String fechaFin){
