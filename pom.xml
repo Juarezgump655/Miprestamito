@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.desa</groupId>
 	<artifactId>miprestamito</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>miprestamito</name>
 	<description>Un sistemas de quejas donde el usuario podra ver la trazabilidad que pasa esta asi como ingresar la misma</description>
 	<dependencies>
