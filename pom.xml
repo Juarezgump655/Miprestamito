@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.desa</groupId>
 	<artifactId>miprestamito</artifactId>
-	<version>1</version>
+	<version>1.0.0</version>
 	<name>miprestamito</name>
 	<description>Un sistemas de quejas donde el usuario podra ver la trazabilidad que pasa esta asi como ingresar la misma</description>
 	<properties>
@@ -95,6 +95,13 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.2.0</version>
+				<configuration>
+					<propertiesEncoding>UTF-8</propertiesEncoding>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>xls</nonFilteredFileExtension>
+						<nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
