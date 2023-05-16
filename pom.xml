@@ -11,6 +11,7 @@
 	<groupId>com.desa</groupId>
 	<artifactId>miprestamito</artifactId>
 	<version>1</version>
+	<packaging>war</packaging>
 	<name>miprestamito</name>
 	<description>Un sistemas de quejas donde el usuario podra ver la trazabilidad que pasa esta asi como ingresar la misma</description>
 	<properties>
@@ -104,16 +105,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
-				<plugin>
-					<groupId>com.heroku.sdk</groupId>
-					<artifactId>heroku-maven-plugin</artifactId>
-					<configuration>
-						<processTypes>
-							<web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
-						</processTypes>
-					</configuration>
-				</plugin>
 
 		</plugins>
 
