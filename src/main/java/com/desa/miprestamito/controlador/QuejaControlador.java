@@ -153,6 +153,12 @@ public class QuejaControlador {
         return(List<TrazabilidadProjection>) trazabilidadService.traerTrazabilidadPorCorrelativo(correlativo);
     }
 
+    @GetMapping("/quejasSeguimientoPA/{idPuntoAtencion}")
+    public List<TableQuejaSeguimientoProjection> listarPuntoAtencion(@PathVariable(value = "idPuntoAtencion") Long idPuntoAtencion){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarPuntoAtencion ");
+        return(List<TableQuejaSeguimientoProjection>) QuejaService.findByPuntoAtencionAtendidas(idPuntoAtencion);
+    }
+
 
 
     @PutMapping("/asignarPuntoQueja/{idQueja}")

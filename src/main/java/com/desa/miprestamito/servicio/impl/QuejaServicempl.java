@@ -1,9 +1,6 @@
 package com.desa.miprestamito.servicio.impl;
 
-import com.desa.miprestamito.Projections.CorrelativoProjection;
-import com.desa.miprestamito.Projections.TableReportesProjection;
-import com.desa.miprestamito.Projections.fichaQuejaProjection;
-import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
+import com.desa.miprestamito.Projections.*;
 import com.desa.miprestamito.controlador.CorreoController;
 import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.Queja;
@@ -179,6 +176,11 @@ public class QuejaServicempl implements QuejaService {
     @Override
     public List<TableReportesProjection> findByRegion(Long region) {
         return repositorio.findByRegion(region);
+    }
+
+    @Override
+    public List<TableQuejaSeguimientoProjection> findByPuntoAtencionAtendidas(Long idPuntoAtencion) {
+        return repositorio.findByPuntoAtencionAtendidas(idPuntoAtencion);
     }
 
     @Override

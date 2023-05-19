@@ -1,9 +1,6 @@
 package com.desa.miprestamito.repositorio;
 
-import com.desa.miprestamito.Projections.CorrelativoProjection;
-import com.desa.miprestamito.Projections.TableReportesProjection;
-import com.desa.miprestamito.Projections.fichaQuejaProjection;
-import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
+import com.desa.miprestamito.Projections.*;
 import com.desa.miprestamito.modelo.Queja;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -117,6 +114,22 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
             "where q.id_queja =?1",nativeQuery = true)
     public fichaQuejaProjection fichaQueja(Long idQueja);
 
+    @Query(value = "SELECT q.id_queja as idQueja, q.correlativo, pa.nombre_punto_atencion as puntoAtencion, r.nombre as region,\n" +
+            "             e.nombre_estado_solicitud as estado, m.nombre_medio as medioIngreso,\n" +
+            "             q.fecha_hora_ingreso as fechaCreacion, q.detalle_queja as detalle, \n" +
+            "             u.nombre\n" +
+            "            FROM public.queja q\n" +
+            "            INNER JOIN puntos_atencion pa ON pa.id_punto_atencion = q.id_punto_atencion\n" +
+            "            INNER JOIN region r ON r.id_region = pa.id_region\n" +
+            "            INNER JOIN estados_socitud e ON e.id_estadosolicitud = q.id_estado\n" +
+            "            INNER JOIN medio_ingreso_queja m ON m.id_medio_ingreso_queja = q.id_medio_ingreso_queja\n" +
+            "            inner join usuarios u on u.dpi \t=q.usuariocreo \n" +
+            "\t\t\tWHERE q.id_punto_atencion  =  :idPuntoAtencion\n" +
+            "\t\t\tand q.id_estado = 2\n" +
+            "\t\t\tor q.id_estado =7\n" +
+            "\t\t\tGROUP BY q.correlativo, q.id_queja, pa.nombre_punto_atencion, r.nombre, e.nombre_estado_solicitud, m.nombre_medio, q.fecha_hora_ingreso, q.detalle_queja,\n" +
+            "\t\t\t\t\t\tu.nombre;\n", nativeQuery = true)
+    public List<TableQuejaSeguimientoProjection> findByPuntoAtencionAtendidas(@Param("idPuntoAtencion") Long idPuntoAtencion);
 
 
 }

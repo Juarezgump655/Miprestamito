@@ -39,10 +39,4 @@ public interface QuejaService {
     public List<TableReportesProjection> findByPuntoAtencion(Long puntoAtencion);
 
     public  List<TableReportesProjection> findByRegion( Long region);
-
-    public Queja asignarQueja(Long idQueja, Queja queja1);
-
-    public List<String> findUsuariosPuntos(Long idPuntoAtencion);
-
-    public List<String> findUsuariosPuntosNombres(Long idPuntoAtencion, String correo);
 }
