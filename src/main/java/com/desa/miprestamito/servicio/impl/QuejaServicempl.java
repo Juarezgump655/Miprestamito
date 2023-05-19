@@ -9,6 +9,7 @@ import com.desa.miprestamito.excepciones.ResourceNotFoundException;
 import com.desa.miprestamito.modelo.Queja;
 import com.desa.miprestamito.modelo.Trazabilidad;
 import com.desa.miprestamito.repositorio.QuejaRepo;
+import com.desa.miprestamito.repositorio.TrazabilidadRepo;
 import com.desa.miprestamito.repositorio.UsuarioRepo;
 import com.desa.miprestamito.servicio.QuejaService;
 import com.desa.miprestamito.servicio.TrazabilidadService;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -34,6 +36,9 @@ public class QuejaServicempl implements QuejaService {
 
     @Autowired
     private CorreoController correoController;
+
+    @Autowired
+    private TrazabilidadRepo trazabilidadRepo;
 
     @Autowired
     private UsuarioRepo usuarioRepo;
@@ -107,19 +112,50 @@ public class QuejaServicempl implements QuejaService {
         return usuarioRepo.findEmails(id);
     }
 
+    @Override
+    public List<String> findUsuariosPuntos(Long idPuntoAtencion){
+        return usuarioRepo.findUsuariosPuntos(idPuntoAtencion);
+    }
+
+    @Override
+    public List<String> findUsuariosPuntosNombres(Long idPuntoAtencion, String correo){
+        return usuarioRepo.findUsuariosPuntosNombres(idPuntoAtencion, correo);
+    }
+
+
     public void enviarCorreo(String correo, String asunto, String mensaje) {
     	correoController.enviarCorreo(correo, asunto, mensaje);
     }
 
     public static final String asunto = "Se a ingresado una nueva queja";
+    public static final String asuntoRechazo = "Se Ha rechazado una queja";
+
+    public static final String asuntoAsignacion = "Se ha asignado una queja ";
+    public static final String mensajeRechazo = "Señor(a) Cuentahabiente, la atención a su queja no procede,  ";
+
+    public static final String mensajeAsignadoPunto = "Señor(a) Cuentahabiente, su queja ha sido trasladada al administrador del punto de atención correspondiente para su análisis";
     public static final String mensaje = "El sistema de quejas le informa que se ha recibido una queja, la cual debe ser asignada dentro de las próximas 24 horas.";
     public void  enviarCorreoCentralizador(Long id) {
         List<String> correos = findEmails(id);
+
         for (String correo : correos) {
             System.out.println(correo);
             correoController.enviarCorreo(correo, asunto, mensaje);
         }
     }
+
+    public void  enviarCorreoPunto(Long idPuntoAtencion, Queja quejaModificada) {
+        List<String> correos = findUsuariosPuntos(idPuntoAtencion);
+
+        for (String correo : correos) {
+            List<String> nombres= findUsuariosPuntosNombres(idPuntoAtencion,correo);
+            String mensajeParaUsuariosPuntos="Estimado  " +nombres+
+                    "El sistema para control de quejas por mal servicio o servicio no conforme le informa que se le asignó la queja No: "+quejaModificada.getCorrelativo()+
+                    ", Para su atención tiene un plazo máximo de 5 días hábiles, según normativa vigente.\n";
+            correoController.enviarCorreo(correo, asuntoAsignacion, mensajeParaUsuariosPuntos);
+        }
+    }
+
 
 
 
@@ -148,6 +184,71 @@ public class QuejaServicempl implements QuejaService {
     @Override
     public List<TableReportesProjection> listarQuejasFechas(String fechaInicio, String fechaFin){
         return repositorio.findByFechas(fechaInicio, fechaFin);
+    }
+
+
+    @Override
+    public Queja asignarQueja(Long idQueja, Queja queja1) {
+        Optional<Queja> queja = this.repositorio.findById(idQueja);
+        final Trazabilidad nuevoEstado = new Trazabilidad();
+
+
+
+        if(queja.isPresent()){
+            Queja quejaModificada= queja.get();
+
+            if(queja1.getIdEstado()==2){
+                CompletableFuture.runAsync(() -> {
+                    quejaModificada.setUsuariomodifico(queja1.getUsuariomodifico());
+                    quejaModificada.setFechamodificacion(queja1.getFechamodificacion());
+                    quejaModificada.setFechaFinal(queja1.getFechaFinal());
+                    quejaModificada.setJustificacionRechazo(queja1.getJustificacionRechazo());
+                    quejaModificada.setIdEstado(2L);
+
+                    nuevoEstado.setIdEstadoSolicitud(3L);
+                    nuevoEstado.setIdSolicitud(idQueja);
+                    nuevoEstado.setUsuariomodifico(queja1.getUsuariomodifico());
+                    nuevoEstado.setFechaModifico(queja1.getFechamodificacion());
+                    nuevoEstado.setUsuarioIngreso(queja1.getUsuariomodifico());
+                    nuevoEstado.setEstadoRegistro(2L);
+                    trazabilidadRepo.save(nuevoEstado);
+
+                    this.enviarCorreo(quejaModificada.getCorreo(),asuntoRechazo,mensajeRechazo+queja1.getJustificacionRechazo() );
+                }, asyncExecutor);
+
+
+               return repositorio.save(quejaModificada);
+
+
+            }else{
+                CompletableFuture.runAsync(() -> {
+                    quejaModificada.setIdPuntoAsignado(queja1.getIdPuntoAsignado());
+                    quejaModificada.setUsuariomodifico(queja1.getUsuariomodifico());
+                    quejaModificada.setFechamodificacion(queja1.getFechamodificacion());
+
+
+                    nuevoEstado.setIdEstadoSolicitud(2L);
+                    nuevoEstado.setIdSolicitud(idQueja);
+                    nuevoEstado.setUsuariomodifico(queja1.getUsuariomodifico());
+                    nuevoEstado.setFechaModifico(queja1.getFechamodificacion());
+                    nuevoEstado.setEstadoRegistro(1L);
+                    nuevoEstado.setUsuarioIngreso(queja1.getUsuariomodifico());
+                    trazabilidadRepo.save(nuevoEstado);
+
+                    this.enviarCorreo(quejaModificada.getCorreo(),asuntoAsignacion, mensajeAsignadoPunto);
+
+                    this.enviarCorreoPunto(quejaModificada.getIdPuntoAsignado(), quejaModificada);
+
+
+                }, asyncExecutor);
+
+
+                return repositorio.save(quejaModificada);
+
+            }
+        }else{
+            throw new ResourceNotFoundException("El objeto Queja con identificador " + idQueja+ " no existe en el repositorio.");
+        }
     }
 
 

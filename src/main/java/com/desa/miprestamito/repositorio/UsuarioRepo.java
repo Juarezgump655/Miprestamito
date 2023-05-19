@@ -25,6 +25,14 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Long> {
 
     @Query(value = "select u.correo  from usuarios u where id_cargo =6 and id_puntoatencion = :id and estado =1" , nativeQuery = true)
     public List<String> findEmails(@Param("id") Long id);
+
+
+    @Query(value="select u.correo  from usuarios u where u.id_puntoatencion=?1 and u.estado=1", nativeQuery = true)
+    public List<String> findUsuariosPuntos(@Param("idPuntoAtencion") long idPuntoAtencion);
+    @Query(value="select u.nombre  from usuarios u where u.id_puntoatencion=?1 and u.estado=1 and u.correo=?2", nativeQuery = true)
+    public List<String> findUsuariosPuntosNombres(@Param("idPuntoAtencion") long idPuntoAtencion, @Param("correo") String correo);
+
+
     @Query(value = "select  u.idusuario as idUsuario,\n" +
             "\t   u.nombre  as nombreUsuario,\n" +
             "\t   u.apellidos  as apellidosUsuario,\n" +

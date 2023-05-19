@@ -31,9 +31,11 @@ public class Trazabilidad implements Serializable {
     @Column(name ="usuario_ingreso", nullable =false)
     private String usuarioIngreso;
 
+
     @Column(name = "fecha_ingreso", columnDefinition = "DATE DEFAULT CURRENT_DATE", updatable = false, insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngreso;
+
     @Column(name = "fechamodifico")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
@@ -41,6 +43,10 @@ public class Trazabilidad implements Serializable {
 
     @Column(name ="usuariomodifico")
     private String usuariomodifico;
+
+    @Column(name="estado_registro")
+    private Long estadoRegistro;
+
 
     public Trazabilidad(Long idEstadoSolicitud, Long idSolicitud, String usuarioIngreso) {
         this.idEstadoSolicitud = idEstadoSolicitud;

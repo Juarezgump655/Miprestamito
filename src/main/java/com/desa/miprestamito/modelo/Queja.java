@@ -74,4 +74,12 @@ public class Queja implements Serializable {
     private Date fechaFinal;
     @Column(name= "correo",nullable = false)
     private String correo;
+
+    @Column(name="id_punto_asignado")
+    private Long idPuntoAsignado;
+
+    @Column(name = "justificacion_rechazo")
+    private String justificacionRechazo;
+
+
 }

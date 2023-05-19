@@ -43,7 +43,7 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
     public CorrelativoProjection findByCorrelativ(Long correlativo);
 
 
-    @Query(value = "select q.id_queja as idQueja , q.correlativo as correlativo, q.fechacreacion as fechaCreacion from public.queja q where q.id_estado =1;",
+    @Query(value = "select q.id_queja as idQueja , q.correlativo as correlativo, q.fechacreacion as fechaCreacion from public.queja q where q.id_estado =1 and q.id_punto_asignado is null",
     nativeQuery = true)
     public List<tablaAsignacionQuejaProjection> tablaAsignacionQueja();
 

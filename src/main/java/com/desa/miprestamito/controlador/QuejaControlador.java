@@ -154,6 +154,12 @@ public class QuejaControlador {
     }
 
 
+
+    @PutMapping("/asignarPuntoQueja/{idQueja}")
+    public ResponseEntity<Queja> asignarPuntoQueja(@PathVariable Long idQueja, @RequestBody Queja queja){
+        Queja quejaActualizada = QuejaService.asignarQueja(idQueja,queja);
+        return ResponseEntity.ok(quejaActualizada);
+    }
 /*
     @PutMapping("/actualizar/{id}")
     public Queja actualizarQueja(@PathVariable(value = "id") Long id, @RequestBody Queja queja){
