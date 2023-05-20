@@ -101,7 +101,6 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
 
     @Query(value = "select  q.correlativo  as correlativo, \n" +
 
-
             "\t\tmiq.nombre_medio as nombreMedio,\n" +
             "\t\tq.fecha_hora_ingreso as fechaIngreso,\n" +
             "\t\ttq.descripcion_queja as descripcionTipoQueja,\n" +

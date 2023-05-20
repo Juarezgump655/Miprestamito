@@ -1,9 +1,6 @@
 package com.desa.miprestamito.servicio;
 
-import com.desa.miprestamito.Projections.CorrelativoProjection;
-import com.desa.miprestamito.Projections.TableReportesProjection;
-import com.desa.miprestamito.Projections.fichaQuejaProjection;
-import com.desa.miprestamito.Projections.tablaAsignacionQuejaProjection;
+import com.desa.miprestamito.Projections.*;
 import com.desa.miprestamito.modelo.Queja;
 import org.springframework.data.repository.query.Param;
 
@@ -39,4 +36,11 @@ public interface QuejaService {
     public List<TableReportesProjection> findByPuntoAtencion(Long puntoAtencion);
 
     public  List<TableReportesProjection> findByRegion( Long region);
+
+    public List<TableQuejaSeguimientoProjection> findByPuntoAtencionAtendidas(Long idPuntoAtencion);
+    public Queja asignarQueja(Long idQueja, Queja queja1);
+
+    public List<String> findUsuariosPuntos(Long idPuntoAtencion);
+
+    public List<String> findUsuariosPuntosNombres(Long idPuntoAtencion, String correo);
 }
