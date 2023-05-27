@@ -132,29 +132,27 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
     public List<TableQuejaSeguimientoProjection> findByPuntoAtencionAtendidas(@Param("idPuntoAtencion") Long idPuntoAtencion);
     
     @Query(value = "select q.correlativo as correlativo,\n" +
-            "es.nombre_estado_solicitud as etapa,\n" +
+            "e.nombre as etapa,\n" +
             "q.justificacion_punto as justificacion,\n" +
             "q.fechacreacion as fechaCreacion,\n" +
             "(u.nombre || ' ' || u.apellidos ) as usuarioCreacion,\n" +
             "pa.nombre_punto_atencion as nombrePunto\n" +
-            "from public.trazabilidad t\n" +
-            "inner join public.queja q on\n" +
-            "t.id_solicitud = q.id_queja \n" +
-            "inner join public.estados_socitud es on\n" +
-            "t.id_estadosolicitud = es.id_estadosolicitud \n" +
-            "inner join public.puntos_atencion pa on\n" +
-            "q.id_punto_asignado = pa.id_punto_atencion \n" +
+            "from public.queja q \n" +
+            "inner join public.estado e on\n" +
+            "q.id_estado = e.id_estado \n" +
             "inner join public.usuarios u on\n" +
             "q.usuariocreo = u.dpi \n" +
-            "where t.id_solicitud=?1 and t.id_estadosolicitud =5", nativeQuery = true)
+            "inner join public.puntos_atencion pa on\n" +
+            "q.id_punto_asignado = pa.id_punto_atencion \n" +
+            "where q.id_queja=?1\n", nativeQuery = true)
     public seguimientoTablaDetalleProjection tablaSeguimientoDetalleQueja(Long idQueja);
 
-    @Query(value = "select t.id_solicitud as idQueja, q.correlativo as correlativo, es.nombre_estado_solicitud as etapa from public.trazabilidad t \n" +
-            "inner join public.queja q on\n" +
-            "t.id_solicitud = q.id_queja\n" +
-            "inner join public.estados_socitud es on\n" +
-            "t.id_estadosolicitud = es.id_estadosolicitud \n" +
-            "where t.id_estadosolicitud=5",nativeQuery = true)
+    @Query(value="select q.id_queja as idQueja, q.correlativo as correlativo,\n" +
+            "e.nombre as etapa\n" +
+            "from public.queja q\n" +
+            "inner join public.estado e on\n" +
+            "q.id_estado = e.id_estado \n" +
+            "where q.id_estado =8;\n", nativeQuery = true)
     public List<seguimientoTablaProjection> tablaSeguimientoQueja();
 
     @Query(value="select q.id_punto_asignado from public.queja q where q.id_queja=?1", nativeQuery = true)

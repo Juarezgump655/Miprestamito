@@ -149,7 +149,7 @@ public class QuejaServicempl implements QuejaService {
     public static final String mensajeRechazo = "Señor(a) Cuentahabiente, la atención a su queja no procede,  ";
 
     public static final String mensajeAsignadoPunto = "Señor(a) Cuentahabiente, su queja ha sido trasladada al administrador del punto de atención correspondiente para su análisis";
-    public static final String mensajeResolucion = "Señor(a) Cuentahabiente, su queja ha sido atendida y resuelta correctamente, gracias por utilizar nuestros servicios.";
+    public static final String mensajeResolucion = "Señor(a) Cuentahabiente, su queja ha sido atendida y resuelta correctamente, ";
     public static final String mensaje = "El sistema de quejas le informa que se ha recibido una queja, la cual debe ser asignada dentro de las próximas 24 horas.";
     public void  enviarCorreoCentralizador(Long id) {
         List<String> correos = findEmails(id);
@@ -298,14 +298,14 @@ public class QuejaServicempl implements QuejaService {
         final Trazabilidad nuevoEstado = new Trazabilidad();
         if(queja.isPresent()){
             Queja quejaModificada= queja.get();
-            if(queja2.getIdEstado()==2){
+            if(queja2.getIdEstado()==6){
                 CompletableFuture.runAsync(() -> {
 
                     quejaModificada.setUsuariomodifico(queja2.getUsuariomodifico());
                     quejaModificada.setFechacreacion(queja2.getFechamodificacion());
                     quejaModificada.setFechaFinal(queja2.getFechaFinal());
                     quejaModificada.setResultadoSeguimiento(queja2.getResultadoSeguimiento());
-                    quejaModificada.setIdEstado(2L);
+                    quejaModificada.setIdEstado(6L);
 
 
                     nuevoEstado.setIdEstadoSolicitud(6L);
@@ -316,7 +316,7 @@ public class QuejaServicempl implements QuejaService {
                     nuevoEstado.setEstadoRegistro(2L);
                     trazabilidadRepo.save(nuevoEstado);
 
-                    this.enviarCorreo(quejaModificada.getCorreo(), asuntoResolucion, mensajeResolucion);
+                    this.enviarCorreo(quejaModificada.getCorreo(), asuntoResolucion, mensajeResolucion+queja2.getResultadoSeguimiento());
                 }, asyncExecutor);
 
                 return repositorio.save(quejaModificada);
@@ -324,7 +324,7 @@ public class QuejaServicempl implements QuejaService {
                 CompletableFuture.runAsync(() -> {
                     quejaModificada.setUsuariomodifico(queja2.getUsuariomodifico());
                     quejaModificada.setIdPuntoAsignado(queja2.getIdPuntoAsignado());
-                    quejaModificada.setIdEstado(1L);
+                    quejaModificada.setIdEstado(7L);
 
                     nuevoEstado.setIdEstadoSolicitud(7L);
                     nuevoEstado.setIdSolicitud(idQueja);
