@@ -323,7 +323,9 @@ public class QuejaServicempl implements QuejaService {
             }else{
                 CompletableFuture.runAsync(() -> {
                     quejaModificada.setUsuariomodifico(queja2.getUsuariomodifico());
+                    quejaModificada.setFechacreacion(queja2.getFechamodificacion());
                     quejaModificada.setIdPuntoAsignado(queja2.getIdPuntoAsignado());
+                    quejaModificada.setResultadoSeguimiento(queja2.getResultadoSeguimiento());
                     quejaModificada.setIdEstado(7L);
 
                     nuevoEstado.setIdEstadoSolicitud(7L);
