@@ -118,6 +118,23 @@ public class QuejaServicempl implements QuejaService {
         return usuarioRepo.findUsuariosPuntosNombres(idPuntoAtencion, correo);
     }
 
+    @Override
+    public FichaPAProjection findByCorrelativoPA(String correlativo) {
+        return repositorio.findByCorrelativoPA(correlativo);
+    }
+
+    @Override
+    @Transactional
+    public void actualizarPropiedad(String correlativo) {
+       repositorio.actualizarPropiedad(correlativo);
+    }
+
+    @Override
+    @Transactional
+    public void actualizarJustificacionPunto(String correlativo, String justificacion) {
+            repositorio.actualizarJustificacionPunto(correlativo, justificacion);
+    }
+
 
     public void enviarCorreo(String correo, String asunto, String mensaje) {
     	correoController.enviarCorreo(correo, asunto, mensaje);

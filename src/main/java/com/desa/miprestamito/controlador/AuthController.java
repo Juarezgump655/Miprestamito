@@ -54,9 +54,9 @@ public class AuthController {
             String jwt = jwtUtil.generateToken(userDetails);
             String nombre = getDpi(request.getUsername()).get("dpi");
             String rol = getDpi(request.getUsername()).get("rol");
+            String puntoAtencion = getDpi(request.getUsername()).get("puntoAtencion");
 
-
-            return new ResponseEntity<>(new AuthenticationResponse(jwt, nombre, rol), HttpStatus.OK);
+            return new ResponseEntity<>(new AuthenticationResponse(jwt, nombre, rol, puntoAtencion), HttpStatus.OK);
            } catch (BadCredentialsException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
            }
@@ -71,10 +71,11 @@ public class AuthController {
         Optional<Usuario> usuario = usuarioServicio.findbyCorreo(username);
         String dpi = usuario.get().getDpi();
         String rol = usuario.get().getRol()+"";
-
+        String puntoAtencion = usuario.get().getIdpuntoatencion()+"";
         Map<String, String> response = new HashMap<>();
         response.put("dpi", dpi);
         response.put("rol", rol);
+        response.put("puntoAtencion", puntoAtencion+"");
         return response;
     }
 

@@ -7,10 +7,13 @@ public class AuthenticationResponse {
 
     private String Rol;
 
-    public AuthenticationResponse(String jwt, String nombre, String Rol) {
-        this.nombre = nombre;
+    private String puntoAtencion;
+
+    public AuthenticationResponse(String jwt, String nombre, String rol, String puntoAtencion) {
         this.jwt = jwt;
-        this.Rol = Rol;
+        this.nombre = nombre;
+        Rol = rol;
+        this.puntoAtencion = puntoAtencion;
     }
 
     public String getJwt() {
@@ -24,6 +27,7 @@ public class AuthenticationResponse {
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -32,7 +36,15 @@ public class AuthenticationResponse {
         return Rol;
     }
 
-    public void setRol(String Rol) {
-        this.Rol = Rol;
+    public void setRol(String rol) {
+        Rol = rol;
+    }
+
+    public String getPuntoAtencion() {
+        return puntoAtencion;
+    }
+
+    public void setPuntoAtencion(String puntoAtencion) {
+        this.puntoAtencion = puntoAtencion;
     }
 }

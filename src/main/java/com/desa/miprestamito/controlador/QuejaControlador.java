@@ -159,6 +159,11 @@ public class QuejaControlador {
         return(List<TableQuejaSeguimientoProjection>) QuejaService.findByPuntoAtencionAtendidas(idPuntoAtencion);
     }
 
+    @GetMapping("/fichaPA/{correlativo}")
+    public FichaPAProjection fichaPA(@PathVariable(value = "correlativo") String correlativo){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo fichaPA ");
+        return (FichaPAProjection) QuejaService.findByCorrelativoPA(correlativo);
+    }
 
 
     @PutMapping("/asignarPuntoQueja/{idQueja}")
@@ -188,6 +193,14 @@ public class QuejaControlador {
         Long puntoAsignado= QuejaService.findPuntoAsignado(idQueja);
         return ResponseEntity.ok(puntoAsignado);
     }
+
+
+     @PatchMapping("/actualizarEstadoProcedente/{correlativo}")
+    public void actualizarEstadoProcedente(@PathVariable(value = "correlativo") String correlativo){
+        logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo actualizarEstadoProcedente ");
+         QuejaService.actualizarPropiedad(correlativo);
+    }
+
 
 /*
     @PutMapping("/actualizar/{id}")

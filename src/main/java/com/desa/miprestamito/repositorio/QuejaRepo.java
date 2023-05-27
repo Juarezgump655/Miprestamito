@@ -2,6 +2,8 @@ package com.desa.miprestamito.repositorio;
 
 import com.desa.miprestamito.Projections.*;
 import com.desa.miprestamito.modelo.Queja;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -158,7 +160,25 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
     @Query(value="select q.id_punto_asignado from public.queja q where q.id_queja=?1", nativeQuery = true)
     public Long findPuntoAsignado(Long idQueja);
 
+    @Query(value = "SELECT q.correlativo,e.nombre_estado_solicitud as estado,q.detalle_queja as detalle,\n" +
+            "\t   pa.nombre_punto_atencion  as puntoAtencion ,q.fecha_hora_ingreso as fechaCreacion,CONCAT(u.nombre, ' ', u.apellidos) AS nombre\n" +
+            "                      FROM public.queja q\n" +
+            "                      INNER JOIN puntos_atencion pa ON pa.id_punto_atencion = q.id_punto_atencion\n" +
+            "                      INNER JOIN region r ON r.id_region = pa.id_region\n" +
+            "                      INNER JOIN estados_socitud e ON e.id_estadosolicitud = q.id_estado\n" +
+            "                      INNER JOIN medio_ingreso_queja m ON m.id_medio_ingreso_queja = q.id_medio_ingreso_queja\n" +
+            "                      inner join usuarios u on u.dpi = q.usuariocreo\n" +
+            "            WHERE q.correlativo  = :correlativo\n" +
+            "            GROUP BY q.correlativo, u.apellidos ,pa.nombre_punto_atencion, u.nombre, e.nombre_estado_solicitud, m.nombre_medio, q.fecha_hora_ingreso, q.detalle_queja, q.fecha_final;\n" +
+            "            ", nativeQuery = true)
+    public FichaPAProjection findByCorrelativoPA(@Param("correlativo") String correlativo);
 
 
+    @Modifying
+    @Query(value=" UPDATE Queja SET id_estado = 8 where correlativo =:correlativo", nativeQuery = true)
+    void actualizarPropiedad(@Param("correlativo") String correlativo);
 
+    @Modifying
+    @Query(value="  UPDATE Queja SET justificacion_punto = :justificacion where correlativo =:correlativo", nativeQuery = true)
+    void actualizarJustificacionPunto(@Param("correlativo") String correlativo,@Param("justificacion") String justificacion);
 }

@@ -50,4 +50,9 @@ public interface QuejaService {
 
     public Long findPuntoAsignado(Long idQueja);
 
+    public FichaPAProjection findByCorrelativoPA( String correlativo);
+
+    void actualizarPropiedad(String correlativo);
+
+    void actualizarJustificacionPunto(String correlativo, String justificacion);
 }
