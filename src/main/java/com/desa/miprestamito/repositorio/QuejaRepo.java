@@ -114,7 +114,7 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
             "where q.id_queja =?1",nativeQuery = true)
     public fichaQuejaProjection fichaQueja(Long idQueja);
 
-    @Query(value = "SELECT q.id_queja as idQueja, q.correlativo, pa.nombre_punto_atencion as puntoAtencion, r.nombre as region,\n" +
+    @Query(value = "SELECT q.correlativo, pa.nombre_punto_atencion as puntoAtencion, r.nombre as region,\n" +
             "             e.nombre_estado_solicitud as estado, m.nombre_medio as medioIngreso,\n" +
             "             q.fecha_hora_ingreso as fechaCreacion, q.detalle_queja as detalle, \n" +
             "             u.nombre\n" +
@@ -123,12 +123,12 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
             "            INNER JOIN region r ON r.id_region = pa.id_region\n" +
             "            INNER JOIN estados_socitud e ON e.id_estadosolicitud = q.id_estado\n" +
             "            INNER JOIN medio_ingreso_queja m ON m.id_medio_ingreso_queja = q.id_medio_ingreso_queja\n" +
-            "            inner join usuarios u on u.dpi \t=q.usuariocreo \n" +
-            "\t\t\tWHERE q.id_punto_atencion  =  :idPuntoAtencion\n" +
+            "            left join usuarios u on u.dpi \t=q.usuariocreo \n" +
+            "\t\t\tWHERE q.id_punto_asignado  =  :idPuntoAtencion" +
             "\t\t\tand q.id_estado = 2\n" +
             "\t\t\tor q.id_estado =7\n" +
-            "\t\t\tGROUP BY q.correlativo, q.id_queja, pa.nombre_punto_atencion, r.nombre, e.nombre_estado_solicitud, m.nombre_medio, q.fecha_hora_ingreso, q.detalle_queja,\n" +
-            "\t\t\t\t\t\tu.nombre;\n", nativeQuery = true)
+            "\t\t\tGROUP BY q.correlativo, pa.nombre_punto_atencion, r.nombre, e.nombre_estado_solicitud, m.nombre_medio, q.fecha_hora_ingreso, q.detalle_queja,\n" +
+            "\t\t\t\t\t\tu.nombre ;", nativeQuery = true)
     public List<TableQuejaSeguimientoProjection> findByPuntoAtencionAtendidas(@Param("idPuntoAtencion") Long idPuntoAtencion);
     
     @Query(value = "select q.correlativo as correlativo,\n" +
@@ -167,7 +167,7 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
             "                      INNER JOIN region r ON r.id_region = pa.id_region\n" +
             "                      INNER JOIN estados_socitud e ON e.id_estadosolicitud = q.id_estado\n" +
             "                      INNER JOIN medio_ingreso_queja m ON m.id_medio_ingreso_queja = q.id_medio_ingreso_queja\n" +
-            "                      inner join usuarios u on u.dpi = q.usuariocreo\n" +
+            "                      left join usuarios u on u.dpi = q.usuariocreo\n" +
             "            WHERE q.correlativo  = :correlativo\n" +
             "            GROUP BY q.correlativo, u.apellidos ,pa.nombre_punto_atencion, u.nombre, e.nombre_estado_solicitud, m.nombre_medio, q.fecha_hora_ingreso, q.detalle_queja, q.fecha_final;\n" +
             "            ", nativeQuery = true)

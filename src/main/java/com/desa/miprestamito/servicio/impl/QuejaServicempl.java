@@ -230,7 +230,7 @@ public class QuejaServicempl implements QuejaService {
         if(queja.isPresent()){
             Queja quejaModificada= queja.get();
 
-            if(queja1.getIdEstado()==2){
+            if(queja1.getIdEstado()==3){
                 CompletableFuture.runAsync(() -> {
                     quejaModificada.setUsuariomodifico(queja1.getUsuariomodifico());
                     quejaModificada.setFechamodificacion(queja1.getFechamodificacion());
@@ -258,7 +258,7 @@ public class QuejaServicempl implements QuejaService {
                     quejaModificada.setIdPuntoAsignado(queja1.getIdPuntoAsignado());
                     quejaModificada.setUsuariomodifico(queja1.getUsuariomodifico());
                     quejaModificada.setFechamodificacion(queja1.getFechamodificacion());
-
+                    quejaModificada.setIdEstado(2L);
 
                     nuevoEstado.setIdEstadoSolicitud(2L);
                     nuevoEstado.setIdSolicitud(idQueja);
