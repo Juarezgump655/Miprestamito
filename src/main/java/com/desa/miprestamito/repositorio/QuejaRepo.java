@@ -2,7 +2,6 @@ package com.desa.miprestamito.repositorio;
 
 import com.desa.miprestamito.Projections.*;
 import com.desa.miprestamito.modelo.Queja;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -129,6 +128,37 @@ public interface QuejaRepo extends CrudRepository<Queja, Long> {
             "\t\t\tGROUP BY q.correlativo, q.id_queja, pa.nombre_punto_atencion, r.nombre, e.nombre_estado_solicitud, m.nombre_medio, q.fecha_hora_ingreso, q.detalle_queja,\n" +
             "\t\t\t\t\t\tu.nombre;\n", nativeQuery = true)
     public List<TableQuejaSeguimientoProjection> findByPuntoAtencionAtendidas(@Param("idPuntoAtencion") Long idPuntoAtencion);
+    
+    @Query(value = "select q.correlativo as correlativo,\n" +
+            "es.nombre_estado_solicitud as etapa,\n" +
+            "q.justificacion_punto as justificacion,\n" +
+            "q.fechacreacion as fechaCreacion,\n" +
+            "(u.nombre || ' ' || u.apellidos ) as usuarioCreacion,\n" +
+            "pa.nombre_punto_atencion as nombrePunto\n" +
+            "from public.trazabilidad t\n" +
+            "inner join public.queja q on\n" +
+            "t.id_solicitud = q.id_queja \n" +
+            "inner join public.estados_socitud es on\n" +
+            "t.id_estadosolicitud = es.id_estadosolicitud \n" +
+            "inner join public.puntos_atencion pa on\n" +
+            "q.id_punto_asignado = pa.id_punto_atencion \n" +
+            "inner join public.usuarios u on\n" +
+            "q.usuariocreo = u.dpi \n" +
+            "where t.id_solicitud=?1 and t.id_estadosolicitud =5", nativeQuery = true)
+    public seguimientoTablaDetalleProjection tablaSeguimientoDetalleQueja(Long idQueja);
+
+    @Query(value = "select t.id_solicitud as idQueja, q.correlativo as correlativo, es.nombre_estado_solicitud as etapa from public.trazabilidad t \n" +
+            "inner join public.queja q on\n" +
+            "t.id_solicitud = q.id_queja\n" +
+            "inner join public.estados_socitud es on\n" +
+            "t.id_estadosolicitud = es.id_estadosolicitud \n" +
+            "where t.id_estadosolicitud=5",nativeQuery = true)
+    public List<seguimientoTablaProjection> tablaSeguimientoQueja();
+
+    @Query(value="select q.id_punto_asignado from public.queja q where q.id_queja=?1", nativeQuery = true)
+    public Long findPuntoAsignado(Long idQueja);
+
+
 
 
 }

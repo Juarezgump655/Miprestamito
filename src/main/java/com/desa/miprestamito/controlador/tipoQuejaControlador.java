@@ -48,4 +48,7 @@ public class tipoQuejaControlador {
     public ResponseEntity<?>contSiglas(@PathVariable String siglasQueja){
         return ResponseEntity.ok(service.contSiglasQueja(siglasQueja));
     }
+
+
+
 }

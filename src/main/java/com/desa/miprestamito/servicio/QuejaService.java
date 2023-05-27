@@ -2,9 +2,7 @@ package com.desa.miprestamito.servicio;
 
 import com.desa.miprestamito.Projections.*;
 import com.desa.miprestamito.modelo.Queja;
-import org.springframework.data.repository.query.Param;
 
-import javax.persistence.Table;
 import java.util.List;
 
 public interface QuejaService {
@@ -43,4 +41,13 @@ public interface QuejaService {
     public List<String> findUsuariosPuntos(Long idPuntoAtencion);
 
     public List<String> findUsuariosPuntosNombres(Long idPuntoAtencion, String correo);
+
+    public List<seguimientoTablaProjection> tablaSeguimientoQueja();
+
+    public seguimientoTablaDetalleProjection tablaSeguimientoDetalleQueja(Long idQueja);
+
+    public Queja seguimientoCentralizador(Long idQueja, Queja queja2);
+
+    public Long findPuntoAsignado(Long idQueja);
+
 }

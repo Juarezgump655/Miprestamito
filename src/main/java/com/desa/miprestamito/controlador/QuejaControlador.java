@@ -135,7 +135,7 @@ public class QuejaControlador {
     }
 
 
-     @GetMapping("/quejaPorPuntoAtencion/{idPuntoAtencion}")
+    @GetMapping("/quejaPorPuntoAtencion/{idPuntoAtencion}")
     public List<TableReportesProjection> listarQuejasPorPuntoAtencion(@PathVariable(value = "idPuntoAtencion") Long idPuntoAtencion){
         logger.log(java.util.logging.Level.INFO, "Se ejecuta el metodo listarQuejasPorPuntoAtencion ");
         return(List<TableReportesProjection>) QuejaService.listarQuejasPorPuntoAtencion(idPuntoAtencion);
@@ -166,6 +166,29 @@ public class QuejaControlador {
         Queja quejaActualizada = QuejaService.asignarQueja(idQueja,queja);
         return ResponseEntity.ok(quejaActualizada);
     }
+
+    @GetMapping("/tablaSeguimientoQueja")
+    public List<seguimientoTablaProjection> seguimientoTabla(){
+        return(List<seguimientoTablaProjection>) QuejaService.tablaSeguimientoQueja();
+    }
+
+    @GetMapping("/tablaSeguimientoDetalle/{idQueja}")
+    public seguimientoTablaDetalleProjection tablaSeguimientoDetalleQueja(@PathVariable Long idQueja){
+        return (seguimientoTablaDetalleProjection) QuejaService.tablaSeguimientoDetalleQueja(idQueja);
+    }
+
+    @PutMapping("/resolverQueja/{idQueja}")
+    public ResponseEntity<Queja>resolverQueja(@PathVariable Long idQueja, @RequestBody Queja queja){
+        Queja quejaActualizada = QuejaService.seguimientoCentralizador(idQueja, queja);
+        return ResponseEntity.ok(quejaActualizada);
+    }
+
+    @GetMapping("/findPuntoAsignado/{idQueja}")
+    public ResponseEntity<Long>  findPuntoAsignado(@PathVariable Long idQueja){
+        Long puntoAsignado= QuejaService.findPuntoAsignado(idQueja);
+        return ResponseEntity.ok(puntoAsignado);
+    }
+
 /*
     @PutMapping("/actualizar/{id}")
     public Queja actualizarQueja(@PathVariable(value = "id") Long id, @RequestBody Queja queja){

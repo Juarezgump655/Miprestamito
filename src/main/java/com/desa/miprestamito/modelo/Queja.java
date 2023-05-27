@@ -81,5 +81,9 @@ public class Queja implements Serializable {
     @Column(name = "justificacion_rechazo")
     private String justificacionRechazo;
 
+    @Column(name="justificacion_punto")
+    private String justificacionPunto;
 
+    @Column(name="resultado_seguimiento")
+    private String resultadoSeguimiento;
 }
